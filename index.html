@@ -1,0 +1,543 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<!-- ===================== SEO ===================== -->
+<title>Softer Dating · Dating, slowed down · Copenhagen</title>
+<meta name="description" content="Tired of dating apps? Softer Dating is an embodied, slowed-down, in-person dating event in Copenhagen. Guided, gentle, playful — meet people eye to eye instead of screen to screen.">
+<link rel="canonical" href="https://www.softerdating.dk/">
+<meta property="og:type" content="website">
+<meta property="og:title" content="Softer Dating · Dating, slowed down">
+<meta property="og:description" content="The embodied alternative to apps and speed dating. In-person events in Copenhagen built on presence, curiosity and play.">
+<meta property="og:url" content="https://www.softerdating.dk/">
+<meta property="og:site_name" content="Softer Dating">
+<meta name="twitter:card" content="summary_large_image">
+<link rel="icon" href="data:image/svg+xml,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'><circle cx='50' cy='50' r='42' fill='%23C26A8D'/></svg>">
+
+<!-- Organization schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Organization",
+  "name": "Softer Dating",
+  "url": "https://www.softerdating.dk/",
+  "email": "softerdating@gmail.com",
+  "description": "Embodied, slowed-down, in-person dating events in Copenhagen.",
+  "sameAs": [
+    "https://www.instagram.com/softer_dating/",
+    "https://www.facebook.com/profile.php?id=61587041900164"
+  ],
+  "areaServed": { "@type": "City", "name": "Copenhagen" }
+}
+</script>
+
+<!-- FAQ schema -->
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "FAQPage",
+  "mainEntity": [
+    {
+      "@type": "Question",
+      "name": "Who else will be at a Softer Dating event?",
+      "acceptedAnswer": { "@type": "Answer", "text": "We organize by age group, so you won't feel like an outlier. There will be mainly singles, and everyone who is there is there to date. Usually 25 to 40 people join an event." }
+    },
+    {
+      "@type": "Question",
+      "name": "Will there be eye contact and physical closeness?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Yes, some exercises involve eye contact and some involve touch. You are always in control: you can close your eyes, look away, or skip any exercise entirely. Consent is at the heart of everything we do." }
+    },
+    {
+      "@type": "Question",
+      "name": "How is Softer Dating different from speed dating?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Most dating events are about efficiency. Softer Dating slows way down. We connect through presence, embodiment and play rather than rapid-fire interviews, so you actually feel who someone is rather than just hearing their CV." }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I feel awkward, anxious or emotional?",
+      "acceptedAnswer": { "@type": "Answer", "text": "Totally fine. We are an emotionally inclusive space, so whatever comes up is welcome. We facilitate the first interactions to help you over the initial awkwardness, and there is always an observation space if you want to sit something out." }
+    },
+    {
+      "@type": "Question",
+      "name": "What if I want to connect with someone afterwards?",
+      "acceptedAnswer": { "@type": "Answer", "text": "At the end of the evening you'll have a facilitated chance to express interest to the people you felt a connection with and exchange numbers or socials. By that point, people tend to be comfortable and brave." }
+    }
+  ]
+}
+</script>
+
+<!-- ===================== FONTS ===================== -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+/* ===================== TOKENS ===================== */
+:root{
+  --petal:   #F9F2F3;   /* page background */
+  --blush:   #F1E2E7;   /* soft section tint */
+  --ink:     #43273B;   /* deep mulberry text */
+  --ink-soft:#7A5F70;   /* secondary text */
+  --rose:    #C26A8D;   /* primary accent */
+  --rose-deep:#A84A72;  /* buttons / strong accent */
+  --peach:   #F2C5A6;   /* warm highlight */
+  --lilac:   #CDB8DC;   /* cool counterpoint */
+  --card:    #FFFFFF;
+  --radius:  26px;
+  --display: 'Young Serif', Georgia, serif;
+  --body:    'Karla', 'Helvetica Neue', sans-serif;
+}
+
+*{ box-sizing:border-box; margin:0; padding:0; }
+html{ scroll-behavior:smooth; }
+body{
+  font-family:var(--body);
+  background:var(--petal);
+  color:var(--ink);
+  line-height:1.65;
+  font-size:17px;
+  -webkit-font-smoothing:antialiased;
+}
+
+h1,h2,h3{ font-family:var(--display); font-weight:400; line-height:1.15; }
+h1{ font-size:clamp(2.4rem, 6.5vw, 4.2rem); letter-spacing:-0.01em; }
+h2{ font-size:clamp(1.7rem, 4vw, 2.4rem); margin-bottom:0.6em; }
+h3{ font-size:1.15rem; }
+p{ color:var(--ink-soft); }
+a{ color:var(--rose-deep); }
+strong{ color:var(--ink); }
+
+.wrap{ max-width:1040px; margin:0 auto; padding:0 24px; }
+.narrow{ max-width:660px; margin-left:auto; margin-right:auto; }
+section{ padding:88px 0; }
+
+.eyebrow{
+  font-size:0.78rem; font-weight:700; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--rose); margin-bottom:14px;
+}
+
+/* ===================== NAV ===================== */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--petal) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.nav-inner{
+  display:flex; align-items:center; justify-content:space-between;
+  padding:14px 24px; max-width:1040px; margin:0 auto;
+}
+.logo{
+  font-family:var(--display); font-size:1.15rem; color:var(--ink);
+  text-decoration:none; display:flex; align-items:center; gap:9px;
+}
+.logo-dot{
+  width:13px; height:13px; border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, var(--peach), var(--rose));
+  animation:breathe 8s ease-in-out infinite;
+}
+.nav-links{ display:flex; gap:26px; align-items:center; }
+.nav-links a{
+  text-decoration:none; color:var(--ink-soft); font-weight:500; font-size:0.95rem;
+}
+.nav-links a:hover{ color:var(--ink); }
+.nav-links a.cta{ color:#fff; }
+@media (max-width:680px){ .nav-links a:not(.cta){ display:none; } }
+
+/* ===================== BUTTONS ===================== */
+.btn{
+  display:inline-block; text-decoration:none; font-weight:700;
+  padding:14px 30px; border-radius:999px; font-size:1rem;
+  transition:transform .25s ease, box-shadow .25s ease;
+}
+.btn-primary{
+  background:var(--rose-deep); color:#fff;
+  box-shadow:0 8px 24px color-mix(in srgb, var(--rose-deep) 30%, transparent);
+}
+.btn-primary:hover{ transform:translateY(-2px); }
+.btn-ghost{
+  color:var(--ink); border:1.5px solid color-mix(in srgb, var(--ink) 25%, transparent);
+}
+.btn-ghost:hover{ border-color:var(--ink); }
+.btn:focus-visible, a:focus-visible, summary:focus-visible{
+  outline:3px solid var(--lilac); outline-offset:3px;
+}
+
+/* ===================== HERO ===================== */
+.hero{
+  position:relative; overflow:hidden;
+  padding:110px 0 130px; text-align:center;
+}
+.hero p.lede{
+  font-size:clamp(1.05rem, 2.4vw, 1.3rem);
+  max-width:560px; margin:26px auto 38px;
+}
+.hero-ctas{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+
+/* the breathing orb — our one bold thing */
+.orb{
+  width:min(560px, 80vw); aspect-ratio:1; border-radius:50%;
+  position:absolute; left:50%; top:50%;
+  transform:translate(-50%,-50%);
+  background:radial-gradient(circle at 38% 32%,
+    color-mix(in srgb, var(--peach) 75%, white) 0%,
+    color-mix(in srgb, var(--rose) 45%, var(--petal)) 48%,
+    color-mix(in srgb, var(--lilac) 35%, var(--petal)) 78%,
+    var(--petal) 100%);
+  filter:blur(2px);
+  opacity:0.55;
+  z-index:0;
+  animation:breathe 8s ease-in-out infinite;
+}
+.hero .wrap{ position:relative; z-index:1; }
+.breath-note{
+  margin-top:54px; font-size:0.85rem; color:var(--ink-soft);
+  font-style:italic; opacity:0.85;
+}
+@keyframes breathe{
+  0%,100%{ transform:translate(-50%,-50%) scale(1); }
+  50%    { transform:translate(-50%,-50%) scale(1.07); }
+}
+.logo-dot{ animation-name:breathe-dot; }
+@keyframes breathe-dot{
+  0%,100%{ transform:scale(1); }
+  50%    { transform:scale(1.25); }
+}
+@media (prefers-reduced-motion: reduce){
+  .orb, .logo-dot{ animation:none; }
+  html{ scroll-behavior:auto; }
+}
+
+/* ===================== MANIFESTO ===================== */
+.manifesto{ background:var(--blush); }
+.manifesto blockquote{
+  font-family:var(--display);
+  font-size:clamp(1.3rem, 3vw, 1.7rem);
+  color:var(--ink); margin:0 0 30px;
+}
+
+/* ===================== TWO LISTS ===================== */
+.contrast{ display:grid; grid-template-columns:1fr 1fr; gap:24px; margin-top:40px; }
+@media (max-width:740px){ .contrast{ grid-template-columns:1fr; } }
+.card{
+  background:var(--card); border-radius:var(--radius); padding:36px 32px;
+  box-shadow:0 10px 36px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.card h3{ margin-bottom:18px; }
+.card ul{ list-style:none; }
+.card li{
+  padding:10px 0 10px 30px; position:relative; color:var(--ink-soft);
+  border-bottom:1px solid color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.card li:last-child{ border-bottom:none; }
+.card li::before{
+  content:""; position:absolute; left:2px; top:19px;
+  width:10px; height:10px; border-radius:50%;
+}
+.card.no li::before{ background:var(--lilac); }
+.card.yes li::before{ background:var(--rose); }
+.card li strong{ display:block; }
+
+/* ===================== EVENTS ===================== */
+.events-list{ display:grid; gap:18px; margin-top:36px; }
+.event-card{
+  background:var(--card); border-radius:var(--radius); padding:28px 32px;
+  display:flex; flex-wrap:wrap; align-items:center; gap:18px 28px;
+  box-shadow:0 10px 36px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+.event-date{
+  font-family:var(--display); font-size:1.5rem; color:var(--rose-deep);
+  min-width:120px;
+}
+.event-info{ flex:1; min-width:200px; }
+.event-info h3{ margin-bottom:4px; }
+.event-info p{ font-size:0.95rem; }
+.events-empty{
+  background:var(--card); border-radius:var(--radius); padding:36px;
+  text-align:center; box-shadow:0 10px 36px color-mix(in srgb, var(--ink) 6%, transparent);
+}
+
+/* ===================== FAQ ===================== */
+.faq details{
+  background:var(--card); border-radius:18px; margin-bottom:12px;
+  box-shadow:0 6px 20px color-mix(in srgb, var(--ink) 5%, transparent);
+}
+.faq summary{
+  cursor:pointer; padding:20px 26px; font-weight:700; color:var(--ink);
+  list-style:none; display:flex; justify-content:space-between; align-items:center; gap:16px;
+}
+.faq summary::-webkit-details-marker{ display:none; }
+.faq summary::after{
+  content:"+"; font-family:var(--display); font-size:1.4rem; color:var(--rose);
+  transition:transform .25s ease; flex-shrink:0;
+}
+.faq details[open] summary::after{ transform:rotate(45deg); }
+.faq .answer{ padding:0 26px 22px; }
+
+/* ===================== BLOG ===================== */
+.blog{ background:var(--blush); }
+.blog-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(260px,1fr)); gap:20px; margin-top:36px; }
+.post{
+  background:var(--card); border-radius:var(--radius); padding:30px 28px;
+  text-decoration:none; display:block;
+  transition:transform .25s ease;
+}
+.post:hover{ transform:translateY(-4px); }
+.post h3{ color:var(--ink); margin:10px 0 10px; }
+.post time{ font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--rose); font-weight:700; }
+.post p{ font-size:0.95rem; }
+.blog-fallback{ text-align:center; margin-top:36px; }
+
+/* ===================== FOOTER ===================== */
+footer{
+  padding:70px 0 50px; text-align:center;
+  background:var(--ink); color:#E9D9E2;
+}
+footer .logo{ color:#fff; justify-content:center; margin-bottom:18px; font-size:1.4rem; }
+footer p{ color:#C9AFC0; font-size:0.95rem; }
+footer a{ color:var(--peach); text-decoration:none; }
+footer a:hover{ text-decoration:underline; }
+.footer-links{ display:flex; gap:24px; justify-content:center; margin:22px 0 30px; flex-wrap:wrap; }
+.tiny{ font-size:0.8rem; opacity:0.7; margin-top:26px; }
+</style>
+</head>
+<body>
+
+<!-- ===================== NAV ===================== -->
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="#top"><span class="logo-dot"></span>Softer Dating</a>
+    <div class="nav-links">
+      <a href="#why">Why</a>
+      <a href="#events">Events</a>
+      <a href="#faq">FAQ</a>
+      <a href="#blog">Blog</a>
+      <a class="btn btn-primary cta" href="#events" style="padding:10px 22px;">Join an evening</a>
+    </div>
+  </div>
+</nav>
+
+<!-- ===================== HERO ===================== -->
+<header class="hero" id="top">
+  <div class="orb" aria-hidden="true"></div>
+  <div class="wrap">
+    <p class="eyebrow">In-person dating events · Copenhagen</p>
+    <h1>Dating,<br>slowed down.</h1>
+    <p class="lede">Tired of swiping? So were we. Softer Dating is an embodied, gently guided evening where you meet other singles in the flesh — eye to eye, heart to heart.</p>
+    <div class="hero-ctas">
+      <a class="btn btn-primary" href="#events">See upcoming events</a>
+      <a class="btn btn-ghost" href="#why">How it works</a>
+    </div>
+    <p class="breath-note">The circle behind these words breathes at the pace of a calm breath. Join it for one — that's the speed we date at.</p>
+  </div>
+</header>
+
+<!-- ===================== WHY ===================== -->
+<section class="manifesto" id="why">
+  <div class="wrap narrow">
+    <p class="eyebrow">Why we exist</p>
+    <blockquote>"Is there really no alternative to swiping? I just want to meet interesting people!"</blockquote>
+    <p>That question is where Softer Dating began. We see a deep longing in people to be seen, met, and cared for — and at the same time, it takes courage to "out" yourself as someone who longs for connection.</p>
+    <p style="margin-top:16px;">So we create a space that feels safe enough to take that step. We facilitate the first interactions to carry you over the initial awkwardness, then it opens into relaxed, playful encounters. Presence, curiosity and kindness matter here more than polished small talk.</p>
+
+    <div class="contrast">
+      <div class="card no">
+        <h3>What you won't find</h3>
+        <ul>
+          <li><strong>No formulas.</strong> No rehearsed lines, no pressure to impress.</li>
+          <li><strong>No interviews.</strong> No "what's your job?" — just real questions that invite curiosity.</li>
+          <li><strong>No rush.</strong> Being together is the point, not getting through a list of people.</li>
+        </ul>
+      </div>
+      <div class="card yes">
+        <h3>What you will find</h3>
+        <ul>
+          <li><strong>Presence.</strong> Your attention fully in the here and now, on the subtle energy between you and someone else.</li>
+          <li><strong>Warmth.</strong> Meaningful, always-optional touch — a hug, a held hand — building trust without expectation.</li>
+          <li><strong>Being witnessed.</strong> To see and be seen, in your human complexity.</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== EVENTS ===================== -->
+<section id="events">
+  <div class="wrap narrow">
+    <p class="eyebrow">Upcoming</p>
+    <h2>Come date with us</h2>
+    <p>Evenings are organized by age group, with 25–40 people in the room. Booking is handled by our friends at House of Play.</p>
+    <div class="events-list" id="events-list"></div>
+  </div>
+</section>
+
+<!-- ===================== FAQ ===================== -->
+<section class="faq" id="faq">
+  <div class="wrap narrow">
+    <p class="eyebrow">Nervous? We got you</p>
+    <h2>Frequently asked questions</h2>
+
+    <details>
+      <summary>Who else will be there?</summary>
+      <p class="answer">We organize by age group, so you won't feel like an outlier. You'll look around and think, "these are my people." Mainly singles — and everyone who is there is there to date.</p>
+    </details>
+    <details>
+      <summary>What's the gender ratio?</summary>
+      <p class="answer">Such a classic question! We don't guarantee a perfect 1:1 — for one, because gender isn't binary in our eyes, and because our events are about connection first. Even an exercise with someone you won't end up dating can be interesting and valuable in itself.</p>
+    </details>
+    <details>
+      <summary>Will there be eye contact and touch?</summary>
+      <p class="answer">Yes, some exercises involve eye contact and some involve touch. And you are always in control: close your eyes, look away, or skip an exercise entirely. Consent is at the heart of everything — everyone is encouraged to respect each other's boundaries, always.</p>
+    </details>
+    <details>
+      <summary>What if I don't like an exercise?</summary>
+      <p class="answer">Opt out, easily, always. We have an observation space where you can simply watch — which can be a lovely and quite cute experience in itself.</p>
+    </details>
+    <details>
+      <summary>What if I feel awkward, anxious or emotional?</summary>
+      <p class="answer">Totally fine. This is an emotionally inclusive space — whatever comes up is welcome. By the end of the night, people are remarkably comfortable around each other, and brave.</p>
+    </details>
+    <details>
+      <summary>What should I wear?</summary>
+      <p class="answer">Something you can move in — we'll be sitting on soft floors. At the same time: this is a dating event, so wear something that makes you feel comfortable, confident and attractive. Go easy on the perfume; pheromone matching is a thing! ;)</p>
+    </details>
+    <details>
+      <summary>What if I want to connect with someone after?</summary>
+      <p class="answer">At the end of the evening you'll have a facilitated chance to express interest to the people you felt a connection with, and exchange numbers or socials. By then, people are comfortable — and brave.</p>
+    </details>
+    <details>
+      <summary>How is this different from speed dating?</summary>
+      <p class="answer">Most dating events are about efficiency: meet as many people as possible in limited time. We slow down. Way down. Less interviewing, more sensing, playing, moving — you'll notice someone's presence, the small details of how they move, the energy between you. That's where real connection happens.</p>
+    </details>
+
+    <p style="margin-top:28px;">More questions? Write us at <a href="mailto:softerdating@gmail.com">softerdating@gmail.com</a></p>
+  </div>
+</section>
+
+<!-- ===================== BLOG ===================== -->
+<section class="blog" id="blog">
+  <div class="wrap">
+    <div class="narrow">
+      <p class="eyebrow">From the blog</p>
+      <h2>Slow thoughts on dating</h2>
+      <p>Essays and field notes from our events — on dating app fatigue, embodiment, and meeting people in the flesh.</p>
+    </div>
+    <div class="blog-grid" id="blog-grid"></div>
+    <div class="blog-fallback">
+      <a class="btn btn-ghost" id="medium-link" href="https://medium.com/@softer_dating" target="_blank" rel="noopener">Read everything on Medium →</a>
+    </div>
+  </div>
+</section>
+
+<!-- ===================== FOOTER ===================== -->
+<footer>
+  <div class="wrap">
+    <a class="logo" href="#top"><span class="logo-dot"></span>Softer Dating</a>
+    <p>The embodied alternative to online dating. Copenhagen &amp; beyond.</p>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/softer_dating/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=61587041900164" target="_blank" rel="noopener">Facebook</a>
+      <a href="mailto:softerdating@gmail.com">softerdating@gmail.com</a>
+    </div>
+    <a class="btn btn-primary" href="#events">Join the next evening</a>
+    <p class="tiny">© <span id="year"></span> Softer Dating</p>
+  </div>
+</footer>
+
+<script>
+/* =========================================================
+   CONFIG — the only part you need to edit between events
+   ========================================================= */
+const SITE = {
+  // Your Medium username (without the @). Posts auto-appear below.
+  mediumUser: "softer_dating",
+
+  // Upcoming events. Add/remove objects as needed.
+  // bookingUrl: paste the House of Play booking link for that event.
+  events: [
+    {
+      title: "Softer Dating · An Evening of Slow Connection",
+      date: "2026-07-04",            // YYYY-MM-DD
+      time: "19:00–22:00",
+      ageGroup: "Ages 28–42",
+      venue: "House of Play, Copenhagen",
+      bookingUrl: "https://www.houseofplay.dk/"   // ← replace with the exact booking page
+    }
+  ]
+};
+
+/* ===================== EVENTS RENDER ===================== */
+(function renderEvents(){
+  const list = document.getElementById("events-list");
+  const fmt = d => new Date(d + "T12:00:00").toLocaleDateString("en-GB", { day:"numeric", month:"short" });
+  const upcoming = SITE.events.filter(e => new Date(e.date + "T23:59:00") >= new Date());
+
+  if (!upcoming.length){
+    list.innerHTML = `<div class="events-empty">
+      <h3>Next dates coming soon</h3>
+      <p style="margin:10px 0 20px;">Follow <a href="https://www.instagram.com/softer_dating/" target="_blank" rel="noopener">@softer_dating</a> to hear first, or write us to be put on the list.</p>
+      <a class="btn btn-primary" href="mailto:softerdating@gmail.com">Put me on the list</a>
+    </div>`;
+    return;
+  }
+
+  list.innerHTML = upcoming.map(e => `
+    <div class="event-card">
+      <div class="event-date">${fmt(e.date)}</div>
+      <div class="event-info">
+        <h3>${e.title}</h3>
+        <p>${e.time} · ${e.ageGroup} · ${e.venue}</p>
+      </div>
+      <a class="btn btn-primary" href="${e.bookingUrl}" target="_blank" rel="noopener">Book via House of Play</a>
+    </div>
+  `).join("");
+
+  // Inject Event schema for Google's event carousel
+  const schema = upcoming.map(e => ({
+    "@context": "https://schema.org",
+    "@type": "SocialEvent",
+    "name": e.title,
+    "startDate": e.date + "T" + e.time.split("–")[0] + ":00+02:00",
+    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+    "eventStatus": "https://schema.org/EventScheduled",
+    "location": { "@type": "Place", "name": e.venue,
+      "address": { "@type": "PostalAddress", "addressLocality": "København", "addressCountry": "DK" } },
+    "organizer": { "@type": "Organization", "name": "Softer Dating", "url": "https://www.softerdating.dk/" },
+    "offers": { "@type": "Offer", "url": e.bookingUrl, "availability": "https://schema.org/InStock" }
+  }));
+  const tag = document.createElement("script");
+  tag.type = "application/ld+json";
+  tag.textContent = JSON.stringify(schema);
+  document.head.appendChild(tag);
+})();
+
+/* ===================== MEDIUM FEED ===================== */
+(async function loadMedium(){
+  const grid = document.getElementById("blog-grid");
+  document.getElementById("medium-link").href = "https://medium.com/@" + SITE.mediumUser;
+  try {
+    const feed = encodeURIComponent("https://medium.com/feed/@" + SITE.mediumUser);
+    const res = await fetch("https://api.rss2json.com/v1/api.json?rss_url=" + feed);
+    const data = await res.json();
+    if (data.status !== "ok" || !data.items?.length) throw new Error("no posts");
+
+    grid.innerHTML = data.items.slice(0, 3).map(p => {
+      const text = p.description.replace(/<[^>]+>/g, "").trim().slice(0, 140);
+      const date = new Date(p.pubDate).toLocaleDateString("en-GB", { day:"numeric", month:"short", year:"numeric" });
+      return `<a class="post" href="${p.link}" target="_blank" rel="noopener">
+        <time>${date}</time>
+        <h3>${p.title}</h3>
+        <p>${text}…</p>
+      </a>`;
+    }).join("");
+  } catch {
+    grid.style.display = "none"; // quiet fallback — the Medium button remains
+  }
+})();
+
+document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+</body>
+</html>
