@@ -18,16 +18,4 @@ const SITE = {
       bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-1"
     }
   ]
-   [
-    {
-      title: "Test: Summer Flavours & The Art of Embodied Dating",
-      date: "2026-06-14",            // YYYY-MM-DD
-      time: "14:00–17:00",
-      ageGroup: "Ages 35–55",        // English label
-      ageGroupDa: "Alder 35–55",     // Danish label
-      venue: "House of Play, Copenhagen",
-      venueDa: "House of Play, København",
-      bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-1"
-    }
-  ]
-};
+   };
