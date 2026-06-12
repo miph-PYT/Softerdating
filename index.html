@@ -533,8 +533,9 @@ footer a:hover{ text-decoration:underline; }
     return;
   }
 
-  list.innerHTML = upcoming.map(e => `
+ list.innerHTML = upcoming.map(e => `
     <div class="event-card">
+      ${e.image ? `<img class="event-photo" src="${e.image}" alt="" onerror="this.style.display='none'">` : ""}
       <div class="event-date">${fmt(e.date)}</div>
       <div class="event-info">
         <h3>${e.title}</h3>
