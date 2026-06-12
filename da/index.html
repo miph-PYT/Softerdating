@@ -290,6 +290,7 @@ nav{
 .event-info p{ font-size:0.95rem; }
 .event-photo{  width:110px; height:110px; object-fit:cover; border-radius:18px; flex-shrink:0; }
 @media (max-width:560px){  .event-photo{ width:100%; height:160px; }
+}
 .events-empty{
   background:var(--card); border-radius:var(--radius); padding:36px;
   text-align:center; box-shadow:0 10px 36px color-mix(in srgb, var(--ink) 6%, transparent);
@@ -408,7 +409,7 @@ footer a:hover{ text-decoration:underline; }
     <p class="eyebrow">Hvem står bag Softer Dating</p>
     <h2>Hej, Philipp her!</h2>
     <div class="about-grid">
-      <img class="about-photo" src="../Philipp_1.png" alt="Philipp, stifter af Softer Dating" onerror="this.style.display='none'">
+      <img class="about-photo" src="../pictures/Philipp_1.png" alt="Philipp, stifter af Softer Dating" onerror="this.style.display='none'">
       <div class="about-text">
         <p>Jeg er facilitator og coach med base i København, og det er mig, der guider dig gennem disse aftener. Mit arbejde lever i krydsfeltet mellem forbindelse, samtykke og kropslighed. Jeg har i årevis holdt rum, hvor mennesker får lov at droppe facaden og faktisk møde hinanden.</p>
         <p>Softer Dating voksede ud af en simpel frustration: Jeg blev ved med at høre (og mærke), at swiping efterlader  mig ensomt og med lav selværd. Så byggede jeg det, jeg selv ønskede fandtes: et varmt rum, blid guidning og ægte mennesker, i virkeligheden.</p>
@@ -422,7 +423,7 @@ footer a:hover{ text-decoration:underline; }
 <!-- ===================== EVENTS ===================== -->
 <section id="events">
   <div class="wrap narrow">
-    <p class="eyebrow">Kommende</p>
+    <p class="eyebrow">Kommende events</p>
     <h2>Kom og vær med</h2>
     <p>Aftenerne er inddelt efter aldersgrupper, med 25–40 mennesker i rummet.</p>
     <div class="events-list" id="events-list"></div>
@@ -491,15 +492,13 @@ footer a:hover{ text-decoration:underline; }
 <section id="newsletter">
   <div class="wrap narrow" style="text-align:center;">
     <p class="eyebrow">Hold dig opdateret</p>
-    <h2>Loveletters: Hør om nye datoer først</h2>
+    <h2>Love-letter: Hør om nye datoer først</h2>
     <p style="max-width:480px; margin:0 auto 30px;">Ingen spam, ingen daglige mails. Bare en venlig besked, når nye datoer åbner — de plejer at blive fyldt op.</p>
     <div class="kit-form">
-      <!-- PASTE YOUR KIT SNIPPET ON THE NEXT LINE -->
-    <script async data-uid="8008c5d8be" src="https://soft-kink.kit.com/8008c5d8be/index.js"></script>
+      <script async data-uid="8008c5d8be" src="https://soft-kink.kit.com/8008c5d8be/index.js"></script>
     </div>
   </div>
 </section>
-  
 <!-- ===================== FOOTER ===================== -->
 <footer>
   <div class="wrap">
@@ -521,7 +520,6 @@ footer a:hover{ text-decoration:underline; }
 
 <script>
 /* ====================== EVENTS RENDER ===================== */
-/* ===================== EVENTS RENDER ===================== */
 (function renderEvents(){
   const list = document.getElementById("events-list");
   const fmt = d => new Date(d + "T12:00:00").toLocaleDateString("da-DK", { day:"numeric", month:"short" });
