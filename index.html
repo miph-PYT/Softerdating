@@ -538,6 +538,126 @@ const SITE = {
 })();
 
 document.getElementById("year").textContent = new Date().getFullYear();
+
+/* =========================================================
+   VISUAL STYLE EDITOR
+   Open the site with  #style  at the end of the URL
+   (e.g. softerdating.dk/#style) to tune colors live,
+   try presets, and download the updated file.
+   Invisible to normal visitors.
+   ========================================================= */
+(function styleEditor(){
+  if (!location.hash.includes("style")) return;
+
+  const TOKENS = [
+    ["petal",     "Page background"],
+    ["blush",     "Soft section tint"],
+    ["ink",       "Text (dark)"],
+    ["ink-soft",  "Text (secondary)"],
+    ["rose",      "Accent"],
+    ["rose-deep", "Buttons"],
+    ["peach",     "Warm highlight"],
+    ["lilac",     "Cool counterpoint"]
+  ];
+
+  const PRESETS = {
+    "Dusk (current)": { petal:"#F9F2F3", blush:"#F1E2E7", ink:"#43273B", "ink-soft":"#7A5F70", rose:"#C26A8D", "rose-deep":"#A84A72", peach:"#F2C5A6", lilac:"#CDB8DC" },
+    "Sage morning":   { petal:"#F5F4EE", blush:"#E7EADF", ink:"#2F3A2F", "ink-soft":"#69755F", rose:"#8FA882", "rose-deep":"#5F7A52", peach:"#EBD9A9", lilac:"#B9C8D8" },
+    "Warm sand":      { petal:"#FAF5EE", blush:"#F1E6D6", ink:"#4A372A", "ink-soft":"#857060", rose:"#D29A6B", "rose-deep":"#B0703D", peach:"#F0C9A0", lilac:"#C4B5A8" },
+    "Night swim":     { petal:"#22202B", blush:"#2C2937", ink:"#F3EDF5", "ink-soft":"#B6ABC2", rose:"#D88BAA", "rose-deep":"#C06088", peach:"#E8B98F", lilac:"#9D8FC0" }
+  };
+
+  const root = document.documentElement;
+  const getVar = n => getComputedStyle(root).getPropertyValue("--"+n).trim();
+
+  const panel = document.createElement("div");
+  panel.innerHTML = `
+    <style>
+      #se{ position:fixed; right:16px; bottom:16px; z-index:999; width:270px;
+        background:#fff; color:#33222e; border-radius:18px; padding:18px;
+        box-shadow:0 16px 48px rgba(0,0,0,.25); font:14px/1.4 'Karla',sans-serif; }
+      #se h4{ font-family:'Young Serif',serif; font-weight:400; margin-bottom:10px; }
+      #se .row{ display:flex; align-items:center; justify-content:space-between; padding:4px 0; }
+      #se label{ font-size:12.5px; color:#7a5f70; }
+      #se input[type=color]{ width:38px; height:26px; border:none; background:none; cursor:pointer; padding:0; }
+      #se input[type=range]{ width:120px; accent-color:#A84A72; }
+      #se select, #se button{ width:100%; margin-top:8px; padding:9px; border-radius:10px;
+        border:1px solid #e3d5dc; background:#faf4f6; cursor:pointer; font:inherit; }
+      #se button.primary{ background:#A84A72; color:#fff; border:none; font-weight:700; }
+      #se .close{ position:absolute; top:10px; right:14px; cursor:pointer; opacity:.5; background:none; border:none; width:auto; margin:0; padding:4px; font-size:16px; }
+      #se .note{ font-size:11px; color:#a08a96; margin-top:8px; }
+    </style>
+    <div id="se">
+      <button class="close" title="Close">✕</button>
+      <h4>Style editor</h4>
+      <select id="se-preset">${Object.keys(PRESETS).map(p=>`<option>${p}</option>`).join("")}</select>
+      <div id="se-rows"></div>
+      <div class="row"><label>Corner roundness</label>
+        <input type="range" id="se-radius" min="0" max="40" value="${parseInt(getVar("radius"))||26}"></div>
+      <button class="primary" id="se-download">Download updated index.html</button>
+      <button id="se-copy">Copy CSS values</button>
+      <p class="note">Replace the file in your GitHub repo with the downloaded one to publish.</p>
+    </div>`;
+  document.body.appendChild(panel);
+
+  const rows = panel.querySelector("#se-rows");
+  TOKENS.forEach(([name, label])=>{
+    const row = document.createElement("div");
+    row.className = "row";
+    row.innerHTML = `<label>${label}</label><input type="color" data-token="${name}" value="${getVar(name)}">`;
+    rows.appendChild(row);
+  });
+
+  panel.addEventListener("input", e=>{
+    if (e.target.dataset.token) root.style.setProperty("--"+e.target.dataset.token, e.target.value);
+    if (e.target.id === "se-radius") root.style.setProperty("--radius", e.target.value+"px");
+  });
+
+  panel.querySelector("#se-preset").addEventListener("change", e=>{
+    const p = PRESETS[e.target.value];
+    for (const [k,v] of Object.entries(p)){
+      root.style.setProperty("--"+k, v);
+      const input = panel.querySelector(`input[data-token="${k}"]`);
+      if (input) input.value = v;
+    }
+  });
+
+  panel.querySelector(".close").addEventListener("click", ()=> panel.remove());
+
+  function currentValues(){
+    const vals = {};
+    TOKENS.forEach(([n])=> vals[n] = getVar(n));
+    vals.radius = getVar("radius");
+    return vals;
+  }
+
+  panel.querySelector("#se-copy").addEventListener("click", e=>{
+    const v = currentValues();
+    const css = TOKENS.map(([n])=>`  --${n}: ${v[n]};`).join("\n") + `\n  --radius: ${v.radius};`;
+    navigator.clipboard.writeText(css);
+    e.target.textContent = "Copied ✓";
+    setTimeout(()=> e.target.textContent = "Copy CSS values", 1500);
+  });
+
+  panel.querySelector("#se-download").addEventListener("click", async e=>{
+    try {
+      const res = await fetch(location.pathname.endsWith("/") ? location.pathname+"index.html" : location.pathname);
+      let html = await res.text();
+      const v = currentValues();
+      for (const [n] of TOKENS){
+        html = html.replace(new RegExp(`(--${n}:\\s*)#[0-9A-Fa-f]{3,8}`), `$1${v[n]}`);
+      }
+      html = html.replace(/(--radius:\s*)\d+px/, `$1${v.radius}`);
+      const blob = new Blob([html], { type:"text/html" });
+      const a = document.createElement("a");
+      a.href = URL.createObjectURL(blob);
+      a.download = "index.html";
+      a.click();
+    } catch {
+      e.target.textContent = "Use 'Copy CSS' instead (works offline)";
+    }
+  });
+})();
 </script>
 </body>
 </html>
