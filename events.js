@@ -4,7 +4,7 @@
    Both the English and Danish page read from here.
    ========================================================= */
 const SITE = {
-  mediumUser: "softer_dating",
+  mediumUser: "softerdatingcph",
 
   events: [
     {
