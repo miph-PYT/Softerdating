@@ -1,1 +1,1 @@
-https://github.com/miph-PYT/Softerdating.git
+https://miph-pyt.github.io/Softerdating/
