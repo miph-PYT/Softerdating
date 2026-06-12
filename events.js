@@ -16,6 +16,18 @@ const SITE = {
       venue: "House of Play, Copenhagen",
       venueDa: "House of Play, København",
       bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-1"
+    },
+ /* ====================copy this if you want another event=====================================
+  {
+      title: "Placeholder",
+      date: "2026-08-22",
+      time: "19:00–22:00",
+      ageGroup: "Ages 25–35",
+      ageGroupDa: "Alder 25–35",
+      venue: "House of Play, Copenhagen",
+      venueDa: "House of Play, København",
+      bookingUrl: "https://www.houseofplay.dk/special-events/..."
     }
+   ========================================================= */  
   ]
    };
