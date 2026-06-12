@@ -492,25 +492,9 @@ footer a:hover{ text-decoration:underline; }
 
 <script>
 /* =========================================================
-   CONFIG — the only part you need to edit between events
+   calls events.js java script where i input all the relevant event data.
    ========================================================= */
-const SITE = {
-  // Your Medium username (without the @). Posts auto-appear below.
-  mediumUser: "softerdatingcph",
-
-  // Upcoming events. Add/remove objects as needed.
-  // bookingUrl: paste the House of Play booking link for that event.
-  events: [
-    {
-      title: "Summer Flavours & The Art of Embodied Dating",
-      date: "2026-06-14",            // YYYY-MM-DD
-      time: "14:00–17:00",
-      ageGroup: "Ages 35–55",
-      venue: "House of Play, Copenhagen",
-      bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-1"   // ← replace with the exact booking page
-    }
-  ]
-};
+<script src="events.js"></script>
 
 /* ===================== EVENTS RENDER ===================== */
 (function renderEvents(){
