@@ -405,10 +405,10 @@ footer a:hover{ text-decoration:underline; }
 <!-- ===================== ABOUT ===================== -->
 <section id="about">
   <div class="wrap narrow">
-    <p class="eyebrow">Hvem står bag</p>
-    <h2>Hej, jeg er Philipp</h2>
+    <p class="eyebrow">Hvem står bag Softer Dating</p>
+    <h2>Hej, Philipp her!</h2>
     <div class="about-grid">
-      <img class="about-photo" src="../Philipp_1.jpg" alt="Philipp, stifter af Softer Dating" onerror="this.style.display='none'">
+      <img class="about-photo" src="../Philipp_1.png" alt="Philipp, stifter af Softer Dating" onerror="this.style.display='none'">
       <div class="about-text">
         <p>Jeg er facilitator og coach med base i København, og det er mig, der guider dig gennem disse aftener. Mit arbejde lever i krydsfeltet mellem forbindelse, samtykke og kropslighed. Jeg har i årevis holdt rum, hvor mennesker får lov at droppe facaden og faktisk møde hinanden.</p>
         <p>Softer Dating voksede ud af en simpel frustration: Jeg blev ved med at høre (og mærke), at swiping efterlader  mig ensomt og med lav selværd. Så byggede jeg det, jeg selv ønskede fandtes: et varmt rum, blid guidning og ægte mennesker, i virkeligheden.</p>
@@ -538,7 +538,7 @@ footer a:hover{ text-decoration:underline; }
 
   list.innerHTML = upcoming.map(e => `
     <div class="event-card">
-      ${e.image ? `<img class="event-photo" src=../"${e.image}" alt="" onerror="this.style.display='none'">` : ""}
+      ${e.image ? `<img class="event-photo" src="../${e.image}" alt="" onerror="this.style.display='none'">` : ""}
       <div class="event-date">${fmt(e.date)}</div>
       <div class="event-info">
         <h3>${e.title}</h3>
