@@ -15,6 +15,7 @@ const SITE = {
       ageGroupDa: "Alder 35–55",     // Danish label
       venue: "House of Play, Copenhagen",
       venueDa: "House of Play, København",
+      image: "pictures/sd_14_06_26.jpg",
       bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-1"
     },
  /* ====================copy this if you want another event=====================================
