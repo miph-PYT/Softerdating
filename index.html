@@ -495,13 +495,13 @@ footer a:hover{ text-decoration:underline; }
   </div>
 </footer>
 
-<script>
-/* =========================================================
-   calls events.js java script where i input all the relevant event data.
-   ========================================================= */
+<!-- Loads events.js where all event data lives -->
 <script src="events.js"></script>
 
-/* ===================== EVENTS RENDER ===================== */
+<script>
+
+/* ====================== EVENTS RENDER ===================== */
+  
 (function renderEvents(){
   const list = document.getElementById("events-list");
   const fmt = d => new Date(d + "T12:00:00").toLocaleDateString("en-GB", { day:"numeric", month:"short" });
