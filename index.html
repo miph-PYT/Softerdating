@@ -249,7 +249,26 @@ nav{
 .card.yes li::before{ background:var(--rose); }
 .card li strong{ display:block; }
 
-/* ===================== EVENTS ===================== */
+/* ===================== ABOUT ===================== */
+.about-grid{
+  display:grid; grid-template-columns:280px 1fr; gap:48px;
+  align-items:center; margin-top:10px;
+}
+@media (max-width:740px){
+  .about-grid{ grid-template-columns:1fr; gap:28px; }
+  .about-photo{ max-width:260px; margin:0 auto; }
+}
+.about-photo{
+  width:100%; aspect-ratio:4/5; object-fit:cover;
+  border-radius:46% 54% 52% 48% / 54% 46% 54% 46%;
+  box-shadow:0 14px 44px color-mix(in srgb, var(--ink) 14%, transparent);
+}
+.about-text p + p{ margin-top:14px; }
+.about-sign{
+  font-family:var(--display); font-size:1.3rem; color:var(--rose-deep);
+  margin-top:20px;
+}
+  /* ===================== EVENTS ===================== */
 .events-list{ display:grid; gap:18px; margin-top:36px; }
 .event-card{
   background:var(--card); border-radius:var(--radius); padding:28px 32px;
@@ -371,7 +390,22 @@ footer a:hover{ text-decoration:underline; }
     </div>
   </div>
 </section>
-
+<!-- ===================== ABOUT ===================== -->
+<section id="about">
+  <div class="wrap narrow">
+    <p class="eyebrow">Who's behind this</p>
+    <h2>Hi, I'm Philipp</h2>
+    <div class="about-grid">
+      <img class="about-photo" src="Philipp_1.jpg" alt="Philipp, founder of Softer Dating" onerror="this.style.display='none'">
+      <div class="about-text">
+        <p>I'm a facilitator and coach based in Copenhagen, and the one guiding you through these evenings. My work lives at the intersection of connection, consent and embodiment — I've spent years holding spaces where people get to drop the performance and actually meet each other.</p>
+        <p>Softer Dating grew out of a simple frustration: I kept hearing (and feeling) that swiping leaves us lonelier than before. So I built the thing I wished existed — a warm room, gentle guidance, and real people, in the flesh.</p>
+        <p>Every exercise we do is grounded in frameworks I work with daily: the Wheel of Consent, nonviolent communication, and somatic practice. Mostly though, it's grounded in the belief that everyone deserves to be met with curiosity.</p>
+        <p class="about-sign">— Philipp</p>
+      </div>
+    </div>
+  </div>
+</section>
 <!-- ===================== EVENTS ===================== -->
 <section id="events">
   <div class="wrap narrow">
