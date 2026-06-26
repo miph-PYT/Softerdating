@@ -9,14 +9,14 @@ const SITE = {
   events: [
     {
       title: "Summer Flavours & The Art of Embodied Dating",
-      date: "2026-06-14",            // YYYY-MM-DD
-      time: "14:00–17:00",
-      ageGroup: "Ages 35–55",        // English label
-      ageGroupDa: "Alder 35–55",     // Danish label
+      date: "2026-08-28",            // YYYY-MM-DD
+      time: "19:00–22:00",
+      ageGroup: "Ages 21–40",        // English label
+      ageGroupDa: "Alder 21–40",     // Danish label
       venue: "House of Play, Copenhagen",
       venueDa: "House of Play, København",
       image: "pictures/sd_14_06_26.jpg",
-      bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-1"
+      bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-4"
     },
  /* ====================copy this if you want another event=====================================
   {
