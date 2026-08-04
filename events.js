@@ -8,7 +8,7 @@ const SITE = {
 
   events: [
     {
-      title: "Summer Flavours & The Art of Embodied Dating",
+      title: " Softer Dating - The Art of Embodied Dating",
       date: "2026-08-28",            // YYYY-MM-DD
       time: "19:00–22:00",
       ageGroup: "Ages 21–40",        // English label
@@ -17,6 +17,30 @@ const SITE = {
       venueDa: "House of Play, København",
       image: "pictures/sd_14_06_26.jpg",
       bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-4"
+    },
+
+        {
+      title: "Softer Dating - Dating the Rainbow - Queer Version",
+      date: "2026-09-23",            // YYYY-MM-DD
+      time: "19:00–22:00",
+      ageGroup: "Ages: All",        // English label
+      ageGroupDa: "Alder: Alle",     // Danish label
+      venue: "House of Play, Copenhagen",
+      venueDa: "House of Play, København",
+      image: "pictures/sd_14_06_26.jpg",
+      bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-dating-the-rainbow"
+    },
+
+        {
+      title: "Softer Dating - The Art of Embodied Dating",
+      date: "2026-11-20",            // YYYY-MM-DD
+      time: "19:00–22:00",
+      ageGroup: "Ages: 40+",        // English label
+      ageGroupDa: "Alder 40+",     // Danish label
+      venue: "House of Play, Copenhagen",
+      venueDa: "House of Play, København",
+      image: "pictures/sd_14_06_26.jpg",
+      bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-4-ehybe"
     },
  /* ====================copy this if you want another event=====================================
   {
