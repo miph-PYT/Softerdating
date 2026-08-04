@@ -27,7 +27,7 @@ const SITE = {
       ageGroupDa: "Alder: Alle",     // Danish label
       venue: "House of Play, Copenhagen",
       venueDa: "House of Play, København",
-      image: "pictures/sd_14_06_26.jpg",
+      image: "pictures/sd date the rainbow sept.png",
       bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-dating-the-rainbow"
     },
 
@@ -39,7 +39,7 @@ const SITE = {
       ageGroupDa: "Alder 40+",     // Danish label
       venue: "House of Play, Copenhagen",
       venueDa: "House of Play, København",
-      image: "pictures/sd_14_06_26.jpg",
+      image: "pictures/sd 40up nov.png",
       bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-4-ehybe"
     },
  /* ====================copy this if you want another event=====================================
