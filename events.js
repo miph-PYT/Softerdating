@@ -7,19 +7,8 @@ const SITE = {
   mediumUser: "softerdatingcph",
 
   events: [
+  
     {
-      title: " Softer Dating - The Art of Embodied Dating",
-      date: "2026-08-28",            // YYYY-MM-DD
-      time: "19:00–22:00",
-      ageGroup: "Ages 21–40",        // English label
-      ageGroupDa: "Alder 21–40",     // Danish label
-      venue: "House of Play, Copenhagen",
-      venueDa: "House of Play, København",
-      image: "pictures/sd_14_06_26.jpg",
-      bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-4"
-    },
-
-        {
       title: "Softer Dating - Dating the Rainbow - Queer Version",
       date: "2026-09-23",            // YYYY-MM-DD
       time: "19:00–22:00",
@@ -32,6 +21,18 @@ const SITE = {
     },
 
         {
+      title: "Social Dancing x Softer Dating - 30-45",
+      date: "2026-10-01",            // YYYY-MM-DD
+      time: "19:00–22:00",
+      ageGroup: "Ages: 30-45",        // English label
+      ageGroupDa: "Alder 30-45",     // Danish label
+      venue: "Krudttønden, Copenhagen",
+      venueDa: "Krudttønden, København",
+      image: "pictures/softer dating x Dancing.png",
+      bookingUrl: "https://bachatacopenhagen.dk/events/softer-dating-social-dancing/"
+    },
+
+    {
       title: "Softer Dating - The Art of Embodied Dating",
       date: "2026-11-20",            // YYYY-MM-DD
       time: "19:00–22:00",
