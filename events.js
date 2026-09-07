@@ -26,8 +26,8 @@ const SITE = {
       time: "19:00–22:00",
       ageGroup: "Ages: 30-45",        // English label
       ageGroupDa: "Alder 30-45",     // Danish label
-      venue: "Krudttønden, Copenhagen",
-      venueDa: "Krudttønden, København",
+      venue: "Carl Jacobsens Vej 19G",
+      venueDa: "Carl Jacobsens Vej 19G",
       image: "pictures/softer dating x Dancing.png",
       bookingUrl: "https://bachatacopenhagen.dk/events/softer-dating-social-dancing/"
     },
