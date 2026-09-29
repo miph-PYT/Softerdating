@@ -7,18 +7,6 @@ const SITE = {
   mediumUser: "softerdatingcph",
 
   events: [
-  
-    {
-      title: "Softer Dating - Dating the Rainbow - Queer Version",
-      date: "2026-09-23",            // YYYY-MM-DD
-      time: "19:00–22:00",
-      ageGroup: "Ages: All",        // English label
-      ageGroupDa: "Alder: Alle",     // Danish label
-      venue: "House of Play, Copenhagen",
-      venueDa: "House of Play, København",
-      image: "pictures/sd date the rainbow sept.png",
-      bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-dating-the-rainbow"
-    },
 
         {
       title: "Social Dancing x Softer Dating - 30-45",
