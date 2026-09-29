@@ -573,47 +573,68 @@ footer a:hover{ text-decoration:underline; }
 /* ====================== EVENTS RENDER ===================== */
 (function renderEvents(){
   const list = document.getElementById("events-list");
-  const fmt = d => new Date(d + "T12:00:00").toLocaleDateString("da-DK", { day:"numeric", month:"short" });
-  const upcoming = SITE.events.filter(e => new Date(e.date + "T23:59:00") >= new Date());
+  const isTBA = v => !v || String(v).trim().toUpperCase() === "TBA";
+  const fmt = d => isTBA(d) ? "TBA" : new Date(d + "T12:00:00").toLocaleDateString("da-DK", { day:"numeric", month:"short" });
+
+  const upcoming = SITE.events
+    .filter(e => {
+      if (isTBA(e.date)) return true;
+      const end = isTBA(e.time) ? "23:59" : (e.time.split("–")[1] || "23:59").trim();
+      return new Date(e.date + "T" + end + ":00") >= new Date();
+    })
+    .sort((a, b) => (isTBA(a.date) - isTBA(b.date)) || String(a.date).localeCompare(String(b.date)));
 
   if (!upcoming.length){
     list.innerHTML = `<div class="events-empty">
       <h3>Nye datoer på vej</h3>
-      <p style="margin:10px 0 20px;">Følg <a href="https://www.instagram.com/softer_dating/" target="_blank" rel="noopener">@softer_dating</a> for at høre det først, eller skriv til os og kom på listen.</p>
-      <a class="btn btn-primary" href="mailto:softerdating@gmail.com">Skriv mig på listen</a>
+      <p style="margin:10px 0 20px;">Skriv dig op til vores love-letters og hør om dem først.</p>
+      <a class="btn btn-primary" href="#newsletter">Skriv mig på listen</a>
     </div>`;
     return;
   }
 
-  list.innerHTML = upcoming.map(e => `
+  list.innerHTML = upcoming.map(e => {
+    const venue = e.venueDa || e.venue;
+    const details = [
+      isTBA(e.time) ? "Tid følger" : e.time,
+      e.ageGroupDa || e.ageGroup,
+      isTBA(venue) ? "Sted følger" : venue
+    ].filter(Boolean).join(" · ");
+    const button = e.bookingUrl
+      ? `<a class="btn btn-primary" href="${e.bookingUrl}" target="_blank" rel="noopener">Book via House of Play</a>`
+      : `<span class="btn btn-ghost" style="cursor:default;">Billetsalg åbner snart</span>`;
+    return `
     <div class="event-card">
       ${e.image ? `<img class="event-photo" src="../${e.image}" alt="" onerror="this.style.display='none'">` : ""}
       <div class="event-date">${fmt(e.date)}</div>
       <div class="event-info">
         <h3>${e.title}</h3>
-        <p>${e.time} · ${e.ageGroup} · ${e.venue}</p>
+        <p>${details}</p>
       </div>
-      <a class="btn btn-primary" href="${e.bookingUrl}" target="_blank" rel="noopener">Book via House of Play</a>
-    </div>
-  `).join("");
+      ${button}
+    </div>`;
+  }).join("");
 
-  // Event schema til Googles event-karrusel
-  const schema = upcoming.map(e => ({
-    "@context": "https://schema.org",
-    "@type": "SocialEvent",
-    "name": e.title,
-    "startDate": e.date + "T" + e.time.split("–")[0] + ":00+02:00",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "location": { "@type": "Place", "name": e.venue,
-      "address": { "@type": "PostalAddress", "addressLocality": "København", "addressCountry": "DK" } },
-    "organizer": { "@type": "Organization", "name": "Softer Dating", "url": "https://www.softerdating.dk/" },
-    "offers": { "@type": "Offer", "url": e.bookingUrl, "availability": "https://schema.org/InStock" }
-  }));
-  const tag = document.createElement("script");
-  tag.type = "application/ld+json";
-  tag.textContent = JSON.stringify(schema);
-  document.head.appendChild(tag);
+  const schema = upcoming
+    .filter(e => !isTBA(e.date) && !isTBA(e.venue))
+    .map(e => ({
+      "@context": "https://schema.org",
+      "@type": "SocialEvent",
+      "name": e.title,
+      "startDate": e.date + "T" + (isTBA(e.time) ? "19:00" : e.time.split("–")[0].trim()) + ":00+02:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": { "@type": "Place", "name": e.venueDa || e.venue,
+        "address": { "@type": "PostalAddress", "addressLocality": "København", "addressCountry": "DK" } },
+      "organizer": { "@type": "Organization", "name": "Softer Dating", "url": "https://www.softerdating.dk/" },
+      "offers": { "@type": "Offer", "url": e.bookingUrl || "https://www.softerdating.dk/da/", "availability": "https://schema.org/InStock" }
+    }));
+  if (schema.length){
+    const tag = document.createElement("script");
+    tag.type = "application/ld+json";
+    tag.textContent = JSON.stringify(schema);
+    document.head.appendChild(tag);
+  }
 })();
 
 /* ===================== MEDIUM FEED ===================== */

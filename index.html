@@ -572,47 +572,68 @@ footer a:hover{ text-decoration:underline; }
   
 (function renderEvents(){
   const list = document.getElementById("events-list");
-  const fmt = d => new Date(d + "T12:00:00").toLocaleDateString("en-GB", { day:"numeric", month:"short" });
-  const upcoming = SITE.events.filter(e => new Date(e.date + "T23:59:00") >= new Date());
+  const isTBA = v => !v || String(v).trim().toUpperCase() === "TBA";
+  const fmt = d => isTBA(d) ? "TBA" : new Date(d + "T12:00:00").toLocaleDateString("en-GB", { day:"numeric", month:"short" });
+
+  const upcoming = SITE.events
+    .filter(e => {
+      if (isTBA(e.date)) return true;
+      const end = isTBA(e.time) ? "23:59" : (e.time.split("–")[1] || "23:59").trim();
+      return new Date(e.date + "T" + end + ":00") >= new Date();
+    })
+    .sort((a, b) => (isTBA(a.date) - isTBA(b.date)) || String(a.date).localeCompare(String(b.date)));
 
   if (!upcoming.length){
     list.innerHTML = `<div class="events-empty">
       <h3>Next dates coming soon</h3>
-      <p style="margin:10px 0 20px;">Follow <a href="https://www.instagram.com/softer_dating/" target="_blank" rel="noopener">@softer_dating</a> to hear first, or write us to be put on the list.</p>
-      <a class="btn btn-primary" href="mailto:softerdating@gmail.com">Put me on the list</a>
+      <p style="margin:10px 0 20px;">Sign up for our love-letters to hear first.</p>
+      <a class="btn btn-primary" href="#newsletter">Put me on the list</a>
     </div>`;
     return;
   }
 
- list.innerHTML = upcoming.map(e => `
+  list.innerHTML = upcoming.map(e => {
+    const details = [
+      isTBA(e.time) ? "Time TBA" : e.time,
+      e.ageGroup,
+      isTBA(e.venue) ? "Venue TBA" : e.venue
+    ].filter(Boolean).join(" · ");
+    const button = e.bookingUrl
+      ? `<a class="btn btn-primary" href="${e.bookingUrl}" target="_blank" rel="noopener">Book via House of Play</a>`
+      : `<span class="btn btn-ghost" style="cursor:default;">Booking opens soon</span>`;
+    return `
     <div class="event-card">
       ${e.image ? `<img class="event-photo" src="${e.image}" alt="" onerror="this.style.display='none'">` : ""}
       <div class="event-date">${fmt(e.date)}</div>
       <div class="event-info">
         <h3>${e.title}</h3>
-        <p>${e.time} · ${e.ageGroup} · ${e.venue}</p>
+        <p>${details}</p>
       </div>
-      <a class="btn btn-primary" href="${e.bookingUrl}" target="_blank" rel="noopener">Book via House of Play</a>
-    </div>
-  `).join("");
+      ${button}
+    </div>`;
+  }).join("");
 
-  // Inject Event schema for Google's event carousel
-  const schema = upcoming.map(e => ({
-    "@context": "https://schema.org",
-    "@type": "SocialEvent",
-    "name": e.title,
-    "startDate": e.date + "T" + e.time.split("–")[0] + ":00+02:00",
-    "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
-    "eventStatus": "https://schema.org/EventScheduled",
-    "location": { "@type": "Place", "name": e.venue,
-      "address": { "@type": "PostalAddress", "addressLocality": "København", "addressCountry": "DK" } },
-    "organizer": { "@type": "Organization", "name": "Softer Dating", "url": "https://www.softerdating.dk/" },
-    "offers": { "@type": "Offer", "url": e.bookingUrl, "availability": "https://schema.org/InStock" }
-  }));
-  const tag = document.createElement("script");
-  tag.type = "application/ld+json";
-  tag.textContent = JSON.stringify(schema);
-  document.head.appendChild(tag);
+  // Google event schema: only for events with a real date and venue
+  const schema = upcoming
+    .filter(e => !isTBA(e.date) && !isTBA(e.venue))
+    .map(e => ({
+      "@context": "https://schema.org",
+      "@type": "SocialEvent",
+      "name": e.title,
+      "startDate": e.date + "T" + (isTBA(e.time) ? "19:00" : e.time.split("–")[0].trim()) + ":00+02:00",
+      "eventAttendanceMode": "https://schema.org/OfflineEventAttendanceMode",
+      "eventStatus": "https://schema.org/EventScheduled",
+      "location": { "@type": "Place", "name": e.venue,
+        "address": { "@type": "PostalAddress", "addressLocality": "København", "addressCountry": "DK" } },
+      "organizer": { "@type": "Organization", "name": "Softer Dating", "url": "https://www.softerdating.dk/" },
+      "offers": { "@type": "Offer", "url": e.bookingUrl || "https://www.softerdating.dk/", "availability": "https://schema.org/InStock" }
+    }));
+  if (schema.length){
+    const tag = document.createElement("script");
+    tag.type = "application/ld+json";
+    tag.textContent = JSON.stringify(schema);
+    document.head.appendChild(tag);
+  }
 })();
 
 /* ===================== MEDIUM FEED ===================== */
