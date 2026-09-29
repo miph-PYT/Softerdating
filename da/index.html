@@ -574,7 +574,7 @@ footer a:hover{ text-decoration:underline; }
 (function renderEvents(){
   const list = document.getElementById("events-list");
   const isTBA = v => !v || String(v).trim().toUpperCase() === "TBA";
-  const fmt = d => isTBA(d) ? "TBA" : new Date(d + "T12:00:00").toLocaleDateString("da-DK", { day:"numeric", month:"short" });
+  const fmt = d => isTBA(d) ? "Date: TBA" : new Date(d + "T12:00:00").toLocaleDateString("da-DK", { day:"numeric", month:"short" });
 
   const upcoming = SITE.events
     .filter(e => {
