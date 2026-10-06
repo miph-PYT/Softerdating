@@ -10,7 +10,7 @@ const SITE = {
 
         {
       title: "Social Dancing x Softer Dating - 30-45",
-      date: "TBA",            // YYYY-MM-DD
+      date: "2026-11-19",            // YYYY-MM-DD
       time: "19:00–22:00",
       ageGroup: "Ages: 30-45",        // English label
       ageGroupDa: "Alder 30-45",     // Danish label
