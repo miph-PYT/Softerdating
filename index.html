@@ -599,7 +599,7 @@ footer a:hover{ text-decoration:underline; }
       isTBA(e.venue) ? "Venue TBA" : e.venue
     ].filter(Boolean).join(" · ");
     const button = e.bookingUrl
-      ? `<a class="btn btn-primary" href="${e.bookingUrl}" target="_blank" rel="noopener">Book via House of Play</a>`
+      ? `<a class="btn btn-primary" href="${e.bookingUrl}" target="_blank" rel="noopener">Book your ticket</a>`
       : `<span class="btn btn-ghost" style="cursor:default;">Booking opens soon</span>`;
     return `
     <div class="event-card">
