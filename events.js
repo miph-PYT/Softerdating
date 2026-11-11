@@ -31,6 +31,17 @@ const SITE = {
       image: "pictures/sd 40up nov.png",
       bookingUrl: "https://www.houseofplay.dk/special-events/softer-dating-4-ehybe"
     },
+    {
+      title: "Softer Dating x Bastard Café -25+",
+      date: "2026-11-20",            // YYYY-MM-DD
+      time: "19:00–22:00",
+      ageGroup: "Ages: 25+",        // English label
+      ageGroupDa: "Alder 25+",     // Danish label
+      venue: "Bastard Café Valby, Copenhagen",
+      venueDa: "Bastard Café Valby, København",
+      image: "pictures/bastard ig post.png",
+      bookingUrl: "https://billetto.dk/e/softer-dating-x-bastard-cafe-billetter-2040318"
+    },
  /* ====================copy this if you want another event=====================================
   {
       title: "Placeholder",
