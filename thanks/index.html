@@ -231,11 +231,11 @@
 
         <div class="extras">
           <div class="langs" role="radiogroup" aria-label="Language">
-            <label class="chip"><input type="radio" name="lang" value="EN" checked><span>English</span></label>
-            <label class="chip"><input type="radio" name="lang" value="DA"><span>Dansk</span></label>
+            <label class="chip"><input type="radio" name="lang" value="EN" form="none" checked><span>English</span></label>
+            <label class="chip"><input type="radio" name="lang" value="DA" form="none"><span>Dansk</span></label>
           </div>
           <label class="consent">
-            <input type="checkbox" name="coaching_interest">
+            <input type="checkbox" name="coaching_interest" id="coaching" form="none">
             <span>I'm also curious about one-to-one coaching.
               <small>Sometimes the hardest part of dating isn't meeting people, it's what comes up in you while you do. That's what I work with.</small></span>
           </label>
@@ -278,24 +278,15 @@
     err.textContent = '';
     const btn = form.querySelector('button');
     btn.disabled = true; btn.textContent = 'One moment…';
-    const data = new FormData();
-    data.append('email_address', email);
-    data.append('tags[]', TAGS.softerDating);
-    data.append('tags[]', form.lang.value === 'DA' ? TAGS.danish : TAGS.english);
-    if (form.coaching_interest.checked) data.append('tags[]', TAGS.coaching);
-    fetch(KIT_FORM_URL, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
-      .then(r => r.json().catch(() => ({})).then(j => {
-        if (!r.ok || (j.status && j.status !== 'success')) throw new Error('kit');
-        // Kit's own consent step (GDPR): send people there to opt in
-        const consentUrl = (j.consent && j.consent.enabled && j.consent.url) || j.redirect_url;
-        if (consentUrl) { window.location.href = consentUrl; return; }
-        document.getElementById('card').classList.add('sent');
-        document.getElementById('card').scrollIntoView({ behavior: 'smooth', block: 'start' });
-      }))
-      .catch(() => {
-        err.textContent = 'Something went wrong. Please try again, or write to hello@softerdating.dk.';
-        btn.disabled = false; btn.textContent = 'Yes, invite me';
-      });
+    // Plain form POST to Kit (like Kit's own HTML embed); Kit then shows its consent step.
+    form.querySelectorAll('input[name="tags[]"]').forEach(i => i.remove());
+    const addTag = (id) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = 'tags[]'; i.value = id; form.appendChild(i); };
+    addTag(TAGS.softerDating);
+    addTag(document.querySelector('input[name=lang]:checked').value === 'DA' ? TAGS.danish : TAGS.english);
+    if (document.getElementById('coaching').checked) addTag(TAGS.coaching);
+    form.action = KIT_FORM_URL;
+    form.method = 'post';
+    form.submit();
   });
 </script>
 </body>
