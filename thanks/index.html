@@ -1,0 +1,302 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Softer Dating – Stay in touch</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --bg: #f7efe8;
+    --card: #fffaf6;
+    --ink: #3b2a2a;
+    --muted: #7a6464;
+    --accent: #c8665a;
+    --accent-dark: #a94f45;
+    --blush: #f1d6cf;
+    --line: #ead9d0;
+    --radius: 22px;
+  }
+  * { box-sizing: border-box; }
+  html, body { margin: 0; }
+  body {
+    min-height: 100vh;
+    font-family: "Inter", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(circle at 15% 10%, #f4d9cf 0, transparent 40%),
+      radial-gradient(circle at 90% 85%, #ecd6e0 0, transparent 45%),
+      var(--bg);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 16px 16px;
+    line-height: 1.55;
+  }
+  .card {
+    width: 100%;
+    max-width: 460px;
+    background: var(--card);
+    border-radius: var(--radius);
+    padding: 30px 24px 24px;
+    box-shadow: 0 20px 50px -25px rgba(90, 50, 40, 0.35);
+    position: relative;
+    overflow: hidden;
+    animation: rise 0.9s ease-out both;
+  }
+  .blob {
+    position: absolute;
+    width: 180px; height: 180px;
+    border-radius: 50%;
+    background: var(--blush);
+    top: -70px; right: -60px;
+    opacity: 0.7;
+    animation: breathe 7s ease-in-out infinite;
+  }
+  .content { position: relative; }
+  .eyebrow {
+    font-size: 12px;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--accent);
+    font-weight: 600;
+    margin: 0 0 14px;
+  }
+  h1 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 1.1;
+    margin: 0 0 8px;
+  }
+  .verse {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 19px;
+    color: var(--ink);
+    margin: 0 0 18px;
+  }
+  p { margin: 0 0 14px; font-size: 15.5px; }
+  ul {
+    list-style: none;
+    padding: 0;
+    margin: 4px 0 24px;
+  }
+  li {
+    font-size: 15px;
+    padding-left: 26px;
+    position: relative;
+    margin-bottom: 8px;
+  }
+  li::before {
+    content: "";
+    position: absolute;
+    left: 4px; top: 8px;
+    width: 9px; height: 9px;
+    border-radius: 50%;
+    background: var(--accent);
+    opacity: 0.75;
+  }
+  form { display: grid; gap: 12px; }
+  label.field { display: grid; gap: 6px; font-size: 13px; font-weight: 500; color: var(--muted); }
+  input[type="text"], input[type="email"] {
+    font: inherit;
+    font-size: 16px;
+    padding: 13px 15px;
+    border: 1.5px solid var(--line);
+    border-radius: 14px;
+    background: #fff;
+    color: var(--ink);
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  input:focus {
+    outline: none;
+    border-color: var(--accent);
+    box-shadow: 0 0 0 4px rgba(200, 102, 90, 0.15);
+  }
+  .langs { display: flex; gap: 8px; flex-wrap: wrap; }
+  .chip input { position: absolute; opacity: 0; pointer-events: none; }
+  .chip span {
+    display: inline-block;
+    padding: 8px 14px;
+    border: 1.5px solid var(--line);
+    border-radius: 999px;
+    font-size: 14px;
+    cursor: pointer;
+    background: #fff;
+    transition: all 0.2s;
+  }
+  .chip input:checked + span { background: var(--blush); border-color: var(--accent); color: var(--accent-dark); }
+  .chip input:focus-visible + span { box-shadow: 0 0 0 4px rgba(200, 102, 90, 0.2); }
+  .consent {
+    display: flex; gap: 10px; align-items: flex-start;
+    font-size: 13.5px; color: var(--muted);
+    margin-top: 4px;
+  }
+  .consent input { margin-top: 3px; accent-color: var(--accent); width: 17px; height: 17px; flex: none; }
+  button {
+    font: inherit;
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 6px;
+    padding: 15px;
+    border: none;
+    border-radius: 999px;
+    background: var(--accent);
+    color: #fff;
+    cursor: pointer;
+    transition: background 0.2s, transform 0.1s;
+  }
+  button:hover { background: var(--accent-dark); }
+  button:active { transform: scale(0.98); }
+  .fine { font-size: 12.5px; color: var(--muted); margin: 14px 0 0; text-align: center; }
+  .error { color: var(--accent-dark); font-size: 13px; min-height: 1em; margin: 0; }
+  .sign { font-family: "Fraunces", Georgia, serif; font-style: italic; margin-top: 18px; }
+  .done { display: none; text-align: center; padding: 10px 0; }
+  .done .heart { font-size: 40px; color: var(--accent); animation: breathe 3s ease-in-out infinite; display: inline-block; }
+  .coach {
+    margin-top: 28px;
+    padding-top: 24px;
+    border-top: 1.5px dashed var(--line);
+  }
+  .coach .eyebrow { color: #6b7f78; }
+  .coach h2 {
+    font-family: "Fraunces", Georgia, serif;
+    font-weight: 600;
+    font-size: 24px;
+    margin: 0 0 12px;
+  }
+  .coach .quote {
+    font-family: "Fraunces", Georgia, serif;
+    font-style: italic;
+    font-size: 17px;
+    border-left: 3px solid #b9c7c1;
+    padding-left: 14px;
+    margin: 16px 0;
+  }
+  .coach .meta { font-size: 13px; color: var(--muted); }
+  .coach-link {
+    display: inline-block;
+    margin-top: 4px;
+    padding: 11px 18px;
+    border: 1.5px solid #6b7f78;
+    border-radius: 999px;
+    color: #4e625b;
+    font-weight: 600;
+    font-size: 14.5px;
+    text-decoration: none;
+    transition: background 0.2s;
+  }
+  .coach-link:hover { background: #eef2ef; }
+  .lead { font-size: 17px; margin: 0 0 18px; }
+  form input[type="email"] { width: 100%; }
+  form button { margin-top: 0; }
+  .error:empty { display: none; }
+  .extras { display: grid; gap: 12px; margin-top: 8px; }
+  .consent small { display: block; margin-top: 3px; font-size: 12.5px; line-height: 1.45; opacity: 0.85; }
+  .privacy { margin-top: 10px; font-size: 12.5px; color: var(--muted); text-align: center; }
+  .privacy summary { cursor: pointer; text-decoration: underline; }
+  .privacy[open] { text-align: left; }
+  .privacy p { font-size: 12.5px; margin: 8px 0 0; }
+  .privacy a { color: var(--accent-dark); }
+  .card.sent .form-part { display: none; }
+  .card.sent .done { display: block; animation: rise 0.6s ease-out both; }
+  .draft {
+    position: fixed; top: 12px; left: 50%; transform: translateX(-50%);
+    background: var(--ink); color: #fff; font-size: 12px;
+    padding: 6px 12px; border-radius: 999px; opacity: 0.8;
+  }
+  @keyframes rise { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: none; } }
+  @keyframes breathe { 0%,100% { transform: scale(1); } 50% { transform: scale(1.08); } }
+  @media (prefers-reduced-motion: reduce) { * { animation: none !important; } }
+</style>
+</head>
+<body>
+
+<main class="card" id="card">
+  <div class="blob" aria-hidden="true"></div>
+  <div class="content">
+
+    <div class="form-part">
+      <p class="eyebrow">Softer Dating</p>
+      <h1>Thank you for tonight!</h1>
+      <p class="lead">Want an invitation to the next one?</p>
+
+      <form id="signup" novalidate>
+        <input type="email" name="email_address" autocomplete="email" placeholder="Your email" aria-label="Email" required>
+        <button type="submit">Yes, invite me</button>
+        <p class="error" id="error" role="alert"></p>
+
+        <div class="extras">
+          <div class="langs" role="radiogroup" aria-label="Language">
+            <label class="chip"><input type="radio" name="lang" value="EN" checked><span>English</span></label>
+            <label class="chip"><input type="radio" name="lang" value="DA"><span>Dansk</span></label>
+          </div>
+          <label class="consent">
+            <input type="checkbox" name="coaching_interest">
+            <span>I'm also curious about one-to-one coaching.
+              <small>Sometimes the hardest part of dating isn't meeting people, it's what comes up in you while you do. That's what I work with.</small></span>
+          </label>
+        </div>
+      </form>
+
+      <details class="privacy">
+        <summary>How I handle your data</summary>
+        <p><strong>Who:</strong> Philipp Mitterhofer, Softer Dating (sole proprietor, CVR 41445726). Contact: <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a>.</p>
+        <p><strong>What and why:</strong> Your email, your language choice and, if you tick it, your interest in coaching. I use them only to send you what you signed up for. The basis is your consent.</p>
+        <p><strong>Where:</strong> In my email tool, Kit, which sends the emails for me. I never sell or share your details.</p>
+        <p><strong>How long:</strong> Until you unsubscribe. Then you're removed from the list.</p>
+        <p><strong>Your rights:</strong> You can ask to see, correct or delete your data at any time, and withdraw consent with one click in any email. You can also complain to Datatilsynet.</p>
+      </details>
+    </div>
+    <div class="done" aria-live="polite">
+      <div class="heart">♡</div>
+      <h1 style="margin-top:10px">Almost there!</h1>
+      <p>Check your inbox and confirm your email. If nothing shows up in a few minutes, have a look in your spam folder.</p>
+      <p class="sign">See you on the dance floor,<br>Philipp</p>
+    </div>
+
+  </div>
+</main>
+
+<script>
+  // Kit form "Softer Dating – after the event" and its tags
+  const KIT_FORM_URL = 'https://app.kit.com/forms/10213334/subscriptions';
+  const TAGS = { softerDating: '26167042', english: '26167044', danish: '26167049', coaching: '26167050' };
+  const form = document.getElementById('signup');
+  const err = document.getElementById('error');
+  form.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const email = form.email_address.value.trim();
+    if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+      err.textContent = 'That email doesn’t look quite right.';
+      form.email_address.focus();
+      return;
+    }
+    err.textContent = '';
+    const btn = form.querySelector('button');
+    btn.disabled = true; btn.textContent = 'One moment…';
+    const data = new FormData();
+    data.append('email_address', email);
+    data.append('tags[]', TAGS.softerDating);
+    data.append('tags[]', form.lang.value === 'DA' ? TAGS.danish : TAGS.english);
+    if (form.coaching_interest.checked) data.append('tags[]', TAGS.coaching);
+    fetch(KIT_FORM_URL, { method: 'POST', body: data, headers: { Accept: 'application/json' } })
+      .then(r => r.json().catch(() => ({})).then(j => {
+        if (!r.ok || (j.status && j.status !== 'success')) throw new Error('kit');
+        // Kit's own consent step (GDPR): send people there to opt in
+        const consentUrl = (j.consent && j.consent.enabled && j.consent.url) || j.redirect_url;
+        if (consentUrl) { window.location.href = consentUrl; return; }
+        document.getElementById('card').classList.add('sent');
+        document.getElementById('card').scrollIntoView({ behavior: 'smooth', block: 'start' });
+      }))
+      .catch(() => {
+        err.textContent = 'Something went wrong. Please try again, or write to hello@softerdating.dk.';
+        btn.disabled = false; btn.textContent = 'Yes, invite me';
+      });
+  });
+</script>
+</body>
+</html>
