@@ -247,6 +247,7 @@
         </div>
       </form>
 
+      <p class="fine">By tapping the button, you agree that Philipp from Softer Dating emails you invitations to upcoming events and the occasional news. One click to unsubscribe, anytime.</p>
       <details class="privacy">
         <summary>How I handle your data</summary>
         <p><strong>Who:</strong> Philipp Mitterhofer, Softer Dating (sole proprietor, CVR 41445726). Contact: <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a>.</p>
@@ -299,7 +300,7 @@
     err.textContent = '';
     const btn = form.querySelector('button');
     btn.disabled = true; btn.textContent = 'One moment…';
-    // Plain form POST to Kit (like Kit's own HTML embed); Kit then shows its consent step.
+    // Plain form POST to Kit (like Kit's own HTML embed); Kit then redirects back to #almost.
     form.querySelectorAll('input[name="tags[]"]').forEach(i => i.remove());
     const addTag = (id) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = 'tags[]'; i.value = id; form.appendChild(i); };
     addTag(TAGS.softerDating);
