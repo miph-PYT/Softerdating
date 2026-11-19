@@ -201,6 +201,11 @@
   .privacy[open] { text-align: left; }
   .privacy p { font-size: 12.5px; margin: 8px 0 0; }
   .privacy a { color: var(--accent-dark); }
+  .confirmed { display: none; text-align: center; padding: 10px 0; }
+  .confirmed .heart { font-size: 40px; color: var(--accent); animation: breathe 3s ease-in-out infinite; display: inline-block; }
+  .card.confirmed-state .form-part { display: none; }
+  .card.confirmed-state .confirmed { display: block; animation: rise 0.6s ease-out both; }
+  .home-link { color: var(--accent-dark); font-weight: 600; text-decoration: none; }
   .card.sent .form-part { display: none; }
   .card.sent .done { display: block; animation: rise 0.6s ease-out both; }
   .draft {
@@ -258,6 +263,14 @@
       <p class="sign">See you on the dance floor,<br>Philipp</p>
     </div>
 
+    <div class="confirmed" aria-live="polite">
+      <div class="heart">♡</div>
+      <h1 style="margin-top:10px">You're in!</h1>
+      <p>Thank you for confirming. I'll write when the next Softer Dating evening is happening.</p>
+      <p><a class="home-link" href="https://www.softerdating.dk/">See upcoming events →</a></p>
+      <p class="sign">See you on the dance floor,<br>Philipp</p>
+    </div>
+
   </div>
 </main>
 
@@ -265,6 +278,14 @@
   // Kit form "Softer Dating – after the event" and its tags
   const KIT_FORM_URL = 'https://app.kit.com/forms/10213334/subscriptions';
   const TAGS = { softerDating: '26167042', english: '26167044', danish: '26167049', coaching: '26167050' };
+  // Kit sends people back here: #almost after the consent step, #confirmed after the email click
+  const showState = () => {
+    const card = document.getElementById('card');
+    card.classList.toggle('sent', location.hash === '#almost');
+    card.classList.toggle('confirmed-state', location.hash === '#confirmed');
+  };
+  showState();
+  window.addEventListener('hashchange', showState);
   const form = document.getElementById('signup');
   const err = document.getElementById('error');
   form.addEventListener('submit', (e) => {
