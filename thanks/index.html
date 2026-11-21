@@ -191,7 +191,7 @@
   }
   .coach-link:hover { background: #eef2ef; }
   .lead { font-size: 17px; margin: 0 0 18px; }
-  form input[type="email"] { width: 100%; }
+  form input[type="email"], form input[type="text"] { width: 100%; }
   form button { margin-top: 0; }
   .error:empty { display: none; }
   .extras { display: grid; gap: 12px; margin-top: 8px; }
@@ -218,7 +218,7 @@
     h1 { font-size: 26px; }
     .lead { margin-bottom: 12px; font-size: 16px; }
     form { gap: 9px; }
-    input[type="email"] { padding: 11px 14px; }
+    input[type="email"], input[type="text"] { padding: 11px 14px; }
     button { padding: 13px; }
     .extras { gap: 9px; margin-top: 4px; }
     .chip span { padding: 6px 12px; font-size: 13.5px; }
@@ -251,6 +251,7 @@
       <p class="lead">Want an invitation to the next one?</p>
 
       <form id="signup" novalidate>
+        <input type="text" name="first_name" autocomplete="given-name" placeholder="Your first name" aria-label="First name">
         <input type="email" name="email_address" autocomplete="email" placeholder="Your email" aria-label="Email" required>
         <button type="submit">Yes, invite me</button>
         <p class="error" id="error" role="alert"></p>
@@ -272,7 +273,7 @@
       <details class="privacy">
         <summary>How I handle your data</summary>
         <p><strong>Who:</strong> Philipp Mitterhofer, Softer Dating (sole proprietor, CVR 41445726). Contact: <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a>.</p>
-        <p><strong>What and why:</strong> Your email, your language choice and, if you tick it, your interest in coaching. I use them only to send you what you signed up for. The basis is your consent.</p>
+        <p><strong>What and why:</strong> Your first name, your email, your language choice and, if you tick it, your interest in coaching. I use them only to send you what you signed up for. The basis is your consent.</p>
         <p><strong>Where:</strong> In my email tool, Kit, which sends the emails for me. I never sell or share your details.</p>
         <p><strong>How long:</strong> Until you unsubscribe. Then you're removed from the list.</p>
         <p><strong>Your rights:</strong> You can ask to see, correct or delete your data at any time, and withdraw consent with one click in any email. You can also complain to Datatilsynet.</p>
@@ -341,7 +342,7 @@
       const r = await withTimeout(fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        body: JSON.stringify({ api_key: KIT_API_KEY, email, tags: tags.map(Number) })
+        body: JSON.stringify({ api_key: KIT_API_KEY, email, first_name: form.first_name.value.trim(), tags: tags.map(Number) })
       }), 15000);
       if (!r.ok) throw new Error('kit ' + r.status);
       return;
@@ -349,12 +350,15 @@
     // No key yet: plain form post (Kit may show its own pages), then Kit sends people back to #almost
     form.querySelectorAll('input[name="tags[]"]').forEach(i => i.remove());
     tags.forEach(t => { const i = document.createElement('input'); i.type = 'hidden'; i.name = 'tags[]'; i.value = t; form.appendChild(i); });
+    form.first_name.name = 'fields[first_name]';
     form.action = KIT_FORM_URL; form.method = 'post';
     HTMLFormElement.prototype.submit.call(form);
     return new Promise(() => {});
   }
 
   function showNext() {
+    const nm = (form.first_name || form.elements['fields[first_name]']).value.trim();
+    document.querySelector('.next h1').textContent = nm ? 'Thank you, ' + nm + '!' : 'Thank you!';
     card.classList.add('next-state');
     let n = 6;
     const cd = document.getElementById('countdown');
@@ -364,6 +368,7 @@
   }
   function resetForm() {
     clearTimeout(resetTimer); clearInterval(tick);
+    const fn = form.elements['fields[first_name]']; if (fn) fn.name = 'first_name';
     form.reset();
     document.getElementById('coaching').checked = false;
     document.querySelector('input[name=lang][value=EN]').checked = true;
