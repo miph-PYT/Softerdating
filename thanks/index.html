@@ -6,7 +6,7 @@
 <title>Softer Dating – Stay in touch</title>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@1,500;1,600&family=Fraunces:ital,opsz,wght@0,9..144,400;0,9..144,600;1,9..144,400&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 <style>
   :root {
     --bg: #f7efe8;
@@ -228,22 +228,26 @@
   }
   .again { width: 100%; margin: 4px 0 6px; }
   .coach-card {
+    position: relative; overflow: hidden;
     display: flex; gap: 12px; align-items: center;
-    background: #eef3f0; border: 1.5px solid #c9d6d0; border-radius: 16px;
-    padding: 12px 14px; cursor: pointer; transition: border-color .2s, background .2s;
+    background: linear-gradient(135deg, #2f7b70, #1f5f58); border-radius: 16px;
+    padding: 12px 14px; cursor: pointer; color: #cfeee9;
+    box-shadow: 0 8px 20px -12px rgba(31,95,88,.7);
   }
-  .coach-card:has(input:checked) { border-color: #6b7f78; background: #e3ede8; }
-  .coach-text { display: grid; gap: 3px; flex: 1; }
-  .coach-title { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 16px; color: #3f5650; }
-  .coach-line { font-size: 12.5px; line-height: 1.4; color: #5b6b66; }
-  .switch { display: grid; justify-items: center; gap: 4px; flex: none; }
+  .coach-card::before, .coach-card::after { content: ""; position: absolute; border-radius: 48% 52% 45% 55% / 55% 45% 55% 45%; pointer-events: none; }
+  .coach-card::before { width: 46px; height: 42px; background: #e8d4f0; opacity: .9; right: -14px; top: -16px; }
+  .coach-card::after { width: 30px; height: 28px; background: #d4a33a; opacity: .85; right: 26px; bottom: -14px; }
+  .coach-text { display: grid; gap: 3px; flex: 1; position: relative; z-index: 1; }
+  .coach-title { font-family: "Cormorant Garamond", Georgia, serif; font-style: italic; font-weight: 600; font-size: 20px; line-height: 1.1; color: #e0faff; }
+  .coach-line { font-size: 12.5px; line-height: 1.4; color: #cfeee9; }
+  .switch { display: grid; justify-items: center; gap: 4px; flex: none; position: relative; z-index: 1; }
   .switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
-  .knob { width: 42px; height: 24px; border-radius: 999px; background: #c9d6d0; position: relative; transition: background .2s; }
-  .knob::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2); transition: transform .2s; }
-  .switch input:checked + .knob { background: #6b7f78; }
-  .switch input:checked + .knob::after { transform: translateX(18px); }
-  .switch input:focus-visible + .knob { box-shadow: 0 0 0 3px rgba(107,127,120,.35); }
-  .switch-label { font-size: 11px; font-weight: 600; color: #4e625b; white-space: nowrap; }
+  .knob { width: 42px; height: 24px; border-radius: 999px; background: rgba(207,238,233,.35); position: relative; transition: background .2s; }
+  .knob::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.25); transition: transform .2s; }
+  .switch input:checked + .knob { background: #e8d4f0; }
+  .switch input:checked + .knob::after { transform: translateX(18px); background: #1f5f58; }
+  .switch input:focus-visible + .knob { box-shadow: 0 0 0 3px rgba(232,212,240,.6); }
+  .switch-label { font-size: 11px; font-weight: 600; color: #e0faff; white-space: nowrap; }
   .card.sent .form-part { display: none; }
   .card.sent .done { display: block; animation: rise 0.6s ease-out both; }
   .draft {
