@@ -227,6 +227,23 @@
     .blob { width: 130px; height: 130px; top: -55px; right: -45px; }
   }
   .again { width: 100%; margin: 4px 0 6px; }
+  .coach-card {
+    display: flex; gap: 12px; align-items: center;
+    background: #eef3f0; border: 1.5px solid #c9d6d0; border-radius: 16px;
+    padding: 12px 14px; cursor: pointer; transition: border-color .2s, background .2s;
+  }
+  .coach-card:has(input:checked) { border-color: #6b7f78; background: #e3ede8; }
+  .coach-text { display: grid; gap: 3px; flex: 1; }
+  .coach-title { font-family: "Fraunces", Georgia, serif; font-weight: 600; font-size: 16px; color: #3f5650; }
+  .coach-line { font-size: 12.5px; line-height: 1.4; color: #5b6b66; }
+  .switch { display: grid; justify-items: center; gap: 4px; flex: none; }
+  .switch input { position: absolute; opacity: 0; width: 1px; height: 1px; }
+  .knob { width: 42px; height: 24px; border-radius: 999px; background: #c9d6d0; position: relative; transition: background .2s; }
+  .knob::after { content: ""; position: absolute; top: 3px; left: 3px; width: 18px; height: 18px; border-radius: 50%; background: #fff; box-shadow: 0 1px 3px rgba(0,0,0,.2); transition: transform .2s; }
+  .switch input:checked + .knob { background: #6b7f78; }
+  .switch input:checked + .knob::after { transform: translateX(18px); }
+  .switch input:focus-visible + .knob { box-shadow: 0 0 0 3px rgba(107,127,120,.35); }
+  .switch-label { font-size: 11px; font-weight: 600; color: #4e625b; white-space: nowrap; }
   .card.sent .form-part { display: none; }
   .card.sent .done { display: block; animation: rise 0.6s ease-out both; }
   .draft {
@@ -253,6 +270,13 @@
       <form id="signup" novalidate>
         <input type="text" name="first_name" autocomplete="given-name" placeholder="Your first name" aria-label="First name">
         <input type="email" name="email_address" autocomplete="email" placeholder="Your email" aria-label="Email" required>
+        <label class="coach-card" for="coaching">
+          <span class="coach-text">
+            <span class="coach-title">Coaching with Philipp</span>
+            <span class="coach-line">Sometimes the hard part of dating isn't meeting people, but what comes up in you. That's what I work with one to one.</span>
+          </span>
+          <span class="switch"><input type="checkbox" name="coaching_interest" id="coaching" form="none" role="switch"><span class="knob"></span><span class="switch-label">Tell me more</span></span>
+        </label>
         <button type="submit">Yes, invite me</button>
         <p class="error" id="error" role="alert"></p>
 
@@ -261,11 +285,6 @@
             <label class="chip"><input type="radio" name="lang" value="EN" form="none" checked><span>English</span></label>
             <label class="chip"><input type="radio" name="lang" value="DA" form="none"><span>Dansk</span></label>
           </div>
-          <label class="consent">
-            <input type="checkbox" name="coaching_interest" id="coaching" form="none">
-            <span>I'm also curious about one-to-one coaching.
-              <small>Sometimes the hard part of dating isn't meeting people, but what comes up in you while you do.</small></span>
-          </label>
         </div>
       </form>
 
@@ -273,7 +292,7 @@
       <details class="privacy">
         <summary>How I handle your data</summary>
         <p><strong>Who:</strong> Philipp Mitterhofer, Softer Dating (sole proprietor, CVR 41445726). Contact: <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a>.</p>
-        <p><strong>What and why:</strong> Your first name, your email, your language choice and, if you tick it, your interest in coaching. I use them only to send you what you signed up for. The basis is your consent.</p>
+        <p><strong>What and why:</strong> Your first name, your email, your language choice and, if you switch it on, your interest in coaching. I use them only to send you what you signed up for. The basis is your consent.</p>
         <p><strong>Where:</strong> In my email tool, Kit, which sends the emails for me. I never sell or share your details.</p>
         <p><strong>How long:</strong> Until you unsubscribe. Then you're removed from the list.</p>
         <p><strong>Your rights:</strong> You can ask to see, correct or delete your data at any time, and withdraw consent with one click in any email. You can also complain to Datatilsynet.</p>
