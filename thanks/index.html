@@ -206,6 +206,27 @@
   .card.confirmed-state .form-part { display: none; }
   .card.confirmed-state .confirmed { display: block; animation: rise 0.6s ease-out both; }
   .home-link { color: var(--accent-dark); font-weight: 600; text-decoration: none; }
+  .next { display: none; text-align: center; padding: 10px 0; }
+  .next .heart { font-size: 40px; color: var(--accent); display: inline-block; }
+  .next button { width: 100%; margin-top: 8px; }
+  .card.next-state .form-part { display: none; }
+  .card.next-state .next { display: block; animation: rise 0.4s ease-out both; }
+  @media (max-height: 760px) {
+    body { padding: 10px 12px; align-items: flex-start; }
+    .card { padding: 20px 18px 16px; }
+    .eyebrow { margin-bottom: 8px; }
+    h1 { font-size: 26px; }
+    .lead { margin-bottom: 12px; font-size: 16px; }
+    form { gap: 9px; }
+    input[type="email"] { padding: 11px 14px; }
+    button { padding: 13px; }
+    .extras { gap: 9px; margin-top: 4px; }
+    .chip span { padding: 6px 12px; font-size: 13.5px; }
+    .fine { margin-top: 10px; font-size: 12px; }
+    .privacy { margin-top: 6px; }
+    .blob { width: 130px; height: 130px; top: -55px; right: -45px; }
+  }
+  .again { width: 100%; margin: 4px 0 6px; }
   .card.sent .form-part { display: none; }
   .card.sent .done { display: block; animation: rise 0.6s ease-out both; }
   .draft {
@@ -242,12 +263,12 @@
           <label class="consent">
             <input type="checkbox" name="coaching_interest" id="coaching" form="none">
             <span>I'm also curious about one-to-one coaching.
-              <small>Sometimes the hardest part of dating isn't meeting people, it's what comes up in you while you do. That's what I work with.</small></span>
+              <small>Sometimes the hard part of dating isn't meeting people, but what comes up in you while you do.</small></span>
           </label>
         </div>
       </form>
 
-      <p class="fine">By tapping the button, you agree that Philipp from Softer Dating emails you invitations to upcoming events and the occasional news. One click to unsubscribe, anytime.</p>
+      <p class="fine">By tapping, you agree that Philipp from Softer Dating emails you event invitations and occasional news. Unsubscribe anytime.</p>
       <details class="privacy">
         <summary>How I handle your data</summary>
         <p><strong>Who:</strong> Philipp Mitterhofer, Softer Dating (sole proprietor, CVR 41445726). Contact: <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a>.</p>
@@ -257,10 +278,19 @@
         <p><strong>Your rights:</strong> You can ask to see, correct or delete your data at any time, and withdraw consent with one click in any email. You can also complain to Datatilsynet.</p>
       </details>
     </div>
+    <div class="next" aria-live="polite">
+      <div class="heart">♡</div>
+      <h1 style="margin-top:10px">Thank you!</h1>
+      <p>Check your inbox and tap the button in my email to confirm. (Have a look in spam too.)</p>
+      <button type="button" id="nextBtn">Sign up another person</button>
+      <p class="fine" id="countdown"></p>
+    </div>
+
     <div class="done" aria-live="polite">
       <div class="heart">♡</div>
       <h1 style="margin-top:10px">Almost there!</h1>
       <p>Check your inbox and confirm your email. If nothing shows up in a few minutes, have a look in your spam folder.</p>
+      <button type="button" class="again" onclick="resetForm()">Sign up another person</button>
       <p class="sign">See you soon,<br>Philipp</p>
     </div>
 
@@ -289,7 +319,63 @@
   window.addEventListener('hashchange', showState);
   const form = document.getElementById('signup');
   const err = document.getElementById('error');
-  form.addEventListener('submit', (e) => {
+  // ---- Signup: sent to Kit in the background, so people never leave this page ----
+  // Kit "API Key" (v3, the public one) from Kit → Settings → Developer. Empty = fallback mode.
+  const KIT_API_KEY = '';
+  const KIT_FORM_ID = '10213334';
+  const card = document.getElementById('card');
+  const btn = form.querySelector('button[type=submit]');
+  let resetTimer = null, tick = null;
+
+  function chosenTags() {
+    const tags = [TAGS.softerDating];
+    tags.push(document.querySelector('input[name=lang]:checked').value === 'DA' ? TAGS.danish : TAGS.english);
+    if (document.getElementById('coaching').checked) tags.push(TAGS.coaching);
+    return tags;
+  }
+  function withTimeout(promise, ms) {
+    return Promise.race([promise, new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), ms))]);
+  }
+  async function sendToKit(email, tags) {
+    if (KIT_API_KEY) {
+      const r = await withTimeout(fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json; charset=utf-8' },
+        body: JSON.stringify({ api_key: KIT_API_KEY, email, tags: tags.map(Number) })
+      }), 15000);
+      if (!r.ok) throw new Error('kit ' + r.status);
+      return;
+    }
+    // No key yet: plain form post (Kit may show its own pages), then Kit sends people back to #almost
+    form.querySelectorAll('input[name="tags[]"]').forEach(i => i.remove());
+    tags.forEach(t => { const i = document.createElement('input'); i.type = 'hidden'; i.name = 'tags[]'; i.value = t; form.appendChild(i); });
+    form.action = KIT_FORM_URL; form.method = 'post';
+    HTMLFormElement.prototype.submit.call(form);
+    return new Promise(() => {});
+  }
+
+  function showNext() {
+    card.classList.add('next-state');
+    let n = 6;
+    const cd = document.getElementById('countdown');
+    cd.textContent = 'Back to the form in ' + n + ' s';
+    tick = setInterval(() => { n--; cd.textContent = n > 0 ? 'Back to the form in ' + n + ' s' : ''; }, 1000);
+    resetTimer = setTimeout(resetForm, n * 1000);
+  }
+  function resetForm() {
+    clearTimeout(resetTimer); clearInterval(tick);
+    form.reset();
+    document.getElementById('coaching').checked = false;
+    document.querySelector('input[name=lang][value=EN]').checked = true;
+    err.textContent = '';
+    btn.disabled = false; btn.textContent = 'Yes, invite me';
+    card.classList.remove('next-state', 'sent', 'confirmed-state');
+    if (location.hash) history.replaceState(history.state, '', location.pathname + location.search);
+    window.scrollTo(0, 0);
+  }
+  document.getElementById('nextBtn').addEventListener('click', resetForm);
+
+  form.addEventListener('submit', async (e) => {
     e.preventDefault();
     const email = form.email_address.value.trim();
     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
@@ -298,17 +384,30 @@
       return;
     }
     err.textContent = '';
-    const btn = form.querySelector('button');
     btn.disabled = true; btn.textContent = 'One moment…';
-    // Plain form POST to Kit (like Kit's own HTML embed); Kit then redirects back to #almost.
-    form.querySelectorAll('input[name="tags[]"]').forEach(i => i.remove());
-    const addTag = (id) => { const i = document.createElement('input'); i.type = 'hidden'; i.name = 'tags[]'; i.value = id; form.appendChild(i); };
-    addTag(TAGS.softerDating);
-    addTag(document.querySelector('input[name=lang]:checked').value === 'DA' ? TAGS.danish : TAGS.english);
-    if (document.getElementById('coaching').checked) addTag(TAGS.coaching);
-    form.action = KIT_FORM_URL;
-    form.method = 'post';
-    form.submit();
+    form.email_address.blur();
+    try {
+      await sendToKit(email, chosenTags());
+      showNext();
+    } catch (x) {
+      err.textContent = 'That didn’t go through. Check the internet connection and tap again.';
+      btn.disabled = false; btn.textContent = 'Yes, invite me';
+    }
+  });
+
+  // ---- Back button: stay on this page instead of leaving it ----
+  let guarded = false;
+  function guard() {
+    if (guarded) return;
+    guarded = true;
+    history.pushState({ stay: true }, '', location.href);
+  }
+  // Browsers only allow this after someone has touched the page
+  ['pointerdown', 'keydown'].forEach(ev => window.addEventListener(ev, guard, { once: true, capture: true }));
+  window.addEventListener('popstate', () => {
+    if (!guarded) return;
+    history.pushState({ stay: true }, '', location.href);
+    resetForm();
   });
 </script>
 </body>
