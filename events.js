@@ -33,7 +33,7 @@ const SITE = {
     },
     {
       title: "Softer Dating x Bastard Café -25+",
-      date: "2026-11-20",            // YYYY-MM-DD
+      date: "2026-12-03",            // YYYY-MM-DD
       time: "19:00–22:00",
       ageGroup: "Ages: 25+",        // English label
       ageGroupDa: "Alder 25+",     // Danish label
