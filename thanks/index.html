@@ -436,17 +436,17 @@
   });
 
   // ---- Back button: stay on this page instead of leaving it ----
-  let guarded = false;
-  function guard() {
-    if (guarded) return;
-    guarded = true;
-    history.pushState({ stay: true }, '', location.href);
+  // Browsers only let a page add "back" steps while someone is touching it,
+  // so every tap tops up one spare step. Pressing back uses it up and just clears the form.
+  let spare = false;
+  function topUp() {
+    if (spare) return;
+    spare = true;
+    history.pushState({ stay: Date.now() }, '', location.href);
   }
-  // Browsers only allow this after someone has touched the page
-  ['pointerdown', 'keydown'].forEach(ev => window.addEventListener(ev, guard, { once: true, capture: true }));
+  ['pointerdown', 'touchstart', 'keydown'].forEach(ev => window.addEventListener(ev, topUp, { capture: true, passive: true }));
   window.addEventListener('popstate', () => {
-    if (!guarded) return;
-    history.pushState({ stay: true }, '', location.href);
+    spare = false;
     resetForm();
   });
 </script>
