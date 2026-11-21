@@ -438,6 +438,10 @@ footer a:hover{ text-decoration:underline; }
 .nl-switch input:checked + .nl-knob::after{ transform:translateX(18px); background:#1f5f58; }
 .nl-switch input:focus-visible + .nl-knob{ box-shadow:0 0 0 3px rgba(232,212,240,.6); }
 .nl-switch-label{ font-size:11px; font-weight:700; color:#e0faff; white-space:nowrap; }
+.nl-msg{ font-size:0.95rem; margin:0 0 12px; }
+.nl-msg:empty{ display:none; }
+.nl-msg.ok{ color:#2f7b70; font-weight:700; }
+.nl-msg.err{ color:#B0413E; }
 .nl-fine{ font-size:0.85rem; margin:16px auto 0; max-width:420px; }
 .nl-privacy{ max-width:420px; margin:8px auto 0; font-size:0.85rem; color:var(--ink-soft); }
 .nl-privacy summary{ cursor:pointer; text-decoration:underline; }
@@ -638,10 +642,8 @@ footer a:hover{ text-decoration:underline; }
     <p class="eyebrow">Hold dig opdateret</p>
     <h2>Love-letters: Hør om nye datoer først</h2>
     <p style="max-width:480px; margin:0 auto 30px;">Ingen spam, ingen daglige mails. Bare en venlig besked, når nye datoer åbner — de plejer at blive fyldt op.</p>
-
-    <script src="https://f.convertkit.com/ckjs/ck.5.js"></script>
-    <form class="seva-form formkit-form nl-form" action="https://app.kit.com/forms/9555639/subscriptions" method="post" data-sv-form="9555639" data-uid="8008c5d8be" data-format="inline" data-version="5" data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Næsten i mål! Tjek din indbakke for at bekræfte.","redirect_url":""},"analytics":{},"recaptcha":{"enabled":false}}}'>
-      <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
+    <form class="nl-form" id="nl-form" novalidate>
+      <p class="nl-msg" id="nl-msg" role="alert" aria-live="polite"></p>
       <div data-element="fields" class="seva-fields formkit-fields">
         <input type="hidden" name="tags[]" value="26167042">
         <input type="hidden" name="tags[]" value="26167049">
@@ -798,6 +800,28 @@ footer a:hover{ text-decoration:underline; }
 })();
 
 document.getElementById("year").textContent = new Date().getFullYear();
+</script>
+
+<script>
+(function(){
+  var form=document.getElementById('nl-form'); if(!form) return;
+  var msg=document.getElementById('nl-msg'), btn=form.querySelector('button'), label=btn.innerHTML;
+  form.addEventListener('submit', function(e){
+    e.preventDefault();
+    var email=form.email_address.value.trim();
+    if(!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)){ msg.textContent='Den e-mail ser ikke helt rigtig ud.'; msg.className='nl-msg err'; form.email_address.focus(); return; }
+    var tags=[].map.call(form.querySelectorAll('input[name="tags[]"]'), function(i){ return (i.type!=='checkbox'||i.checked)?i.value:null; }).filter(Boolean);
+    btn.disabled=true; btn.textContent='Et øjeblik…'; msg.textContent=''; msg.className='nl-msg';
+    fetch('https://script.google.com/macros/s/AKfycbzMaPqtnFopOEmBYdj6EZRz_tf8Dwfk1jtW_PvsCVxIXBywhaFoQMtTxpLJjL85il9r/exec', { method:'POST', headers:{'Content-Type':'text/plain;charset=utf-8'}, body:JSON.stringify({
+      email:email, first_name:form.elements['fields[first_name]'].value.trim(),
+      year_of_birth:form.elements['fields[year_of_birth]'].value, tags:tags, lang:'DA',
+      coaching:document.getElementById('nl-coaching').checked, source:'website' }) })
+    .then(function(r){ return r.json(); })
+    .then(function(j){ if(!j.ok) throw 0; form.reset(); msg.textContent='Næsten færdig! Tjek din indbakke og tryk på knappen i min mail for at bekræfte. (Kig også i spam.)'; msg.className='nl-msg ok'; })
+    .catch(function(){ msg.textContent='Det gik ikke igennem. Tjek din forbindelse og prøv igen.'; msg.className='nl-msg err'; })
+    .then(function(){ btn.disabled=false; btn.innerHTML=label; });
+  });
+})();
 </script>
 </body>
 </html>
