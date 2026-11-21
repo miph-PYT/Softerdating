@@ -31,7 +31,7 @@
   "@type": "Organization",
   "name": "Softer Dating",
   "url": "https://www.softerdating.dk/",
-  "email": "softerdating@gmail.com",
+  "email": "hello@softerdating.dk",
   "description": "Kropsligt forankrede datingevents i København — det alternativ til dating apps.",
   "sameAs": [
     "https://www.instagram.com/softer_dating/",
@@ -372,6 +372,37 @@ footer a{ color:var(--peach); text-decoration:none; }
 footer a:hover{ text-decoration:underline; }
 .footer-links{ display:flex; gap:24px; justify-content:center; margin:22px 0 30px; flex-wrap:wrap; }
 .tiny{ font-size:0.8rem; opacity:0.7; margin-top:26px; }
+/* ===== Coaching additions ===== */
+#about .wrap.narrow{ max-width:920px; }
+.about-grid{ grid-template-columns:240px minmax(0,1fr); gap:56px; align-items:start; }
+.about-photo{ margin-top:6px; }
+@media (max-width:740px){
+  .about-grid{ grid-template-columns:minmax(0,1fr); gap:24px; }
+  .about-photo{ max-width:200px; }
+}
+.about-coaching{ margin-top:24px; }
+.about-coaching .btn{ margin-top:16px; }
+#coaching{ background:var(--ink); color:var(--petal); padding:96px 0; }
+#coaching .coach-head .eyebrow{ color:var(--peach); }
+
+.coach-head{ text-align:center; max-width:720px; margin:0 auto 44px; }
+.coach-head h2{ color:var(--petal); font-size:clamp(2rem,5vw,3rem); margin-bottom:0.35em; }
+.coach-head p{ color:#E6D3DD; font-size:1.08rem; }
+.coach-grid{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:24px; align-items:stretch; }
+.coach-card{ background:var(--card); border-radius:var(--radius); padding:40px 36px; }
+.coach-card h3{ font-size:1.6rem; color:var(--ink); margin-bottom:0.5em; }
+.coach-card p{ color:var(--ink-soft); }
+.coach-facts{ list-style:none; margin:22px 0 28px; display:grid; gap:12px; }
+.coach-facts li{ display:flex; gap:12px; align-items:baseline; color:var(--ink); }
+.coach-facts li::before{ content:""; flex:0 0 8px; height:8px; border-radius:50%; background:var(--rose); transform:translateY(-2px); }
+.coach-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+.coach-perk{ margin-top:22px; font-size:0.92rem; background:var(--petal); border-radius:14px; padding:14px 18px; }
+.nl-interest{ display:flex; gap:10px; align-items:flex-start; text-align:left; font-size:0.95rem; color:var(--ink); margin:4px 0 16px; cursor:pointer; }
+.nl-interest input{ width:20px; height:20px; margin-top:3px; accent-color:var(--rose-deep); flex:none; }
+.coach-side{ background:var(--blush); }
+.coach-side .coach-perk{ background:var(--card); }
+@media (max-width:820px){ .coach-grid{ grid-template-columns:minmax(0,1fr); } }
+@media (max-width:680px){ .coach-card{ padding:30px 22px; } }
 </style>
 </head>
 <body>
@@ -386,6 +417,7 @@ footer a:hover{ text-decoration:underline; }
       <a href="#events">Events</a>
       <a href="#faq">FAQ</a>
       <a href="#blog">Blog</a>
+      <a href="#coaching">1:1 Coaching</a>
       <a class="lang-switch" href="../" title="English version">EN</a>
       <a class="btn btn-primary cta" href="#events" style="padding:10px 22px;">Join an event!</a>
     </div>
@@ -449,6 +481,10 @@ footer a:hover{ text-decoration:underline; }
         <p>Softer Dating voksede ud af en simpel frustration: Jeg blev ved med at høre (og mærke), at swiping efterlader  mig ensomt og med lav selværd. Så byggede jeg det, jeg selv ønskede fandtes: et varmt rum, blid guidning og ægte mennesker, i virkeligheden.</p>
         <p>Hver øvelse, vi laver, er forankret i de rammer, jeg arbejder med til daglig: Wheel of Consent, empatisk kommunikation og somatisk praksis. Men mest af alt er den forankret i troen på, at alle fortjener at blive mødt med nysgerrighed.</p>
         <p class="about-sign">— Philipp | Pyt</p>
+        <div class="about-coaching">
+          <p>Ud over aftenerne arbejder jeg også én-til-én som dating- og parforholdscoach. Hvis dating bliver ved med at vække de samme mønstre, kan vi kigge på dem sammen, blidt og i dit eget tempo.</p>
+          <a class="btn btn-ghost" href="#coaching">Arbejd med mig 1:1 →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -503,7 +539,12 @@ footer a:hover{ text-decoration:underline; }
       <p class="answer">De fleste datingevents handler om effektivitet: Mød så mange som muligt på kortest mulig tid. Vi skruer ned. Helt ned. Mindre interview, mere sansning, leg og bevægelse så du kan lægge mærke til et menneskes nærvær, de små detaljer i, hvordan de bevæger sig, energien mellem jer. Det er dér, ægte forbindelse opstår.</p>
     </details>
 
-    <p style="margin-top:28px;">Flere spørgsmål? Skriv til os på <a href="mailto:softerdating@gmail.com">softerdatingcph@gmail.com</a></p>
+    <details>
+      <summary>Kan jeg arbejde med Philipp én-til-én?</summary>
+      <p class="answer">Ja. Ved siden af aftenerne coacher Philipp enkeltpersoner, ofte netop i det, som dating sætter i gang. <a href="#coaching">Læs om 1:1 coaching</a> eller besøg <a href="https://parts-work.dk" target="_blank" rel="noopener">parts-work.dk</a>.</p>
+    </details>
+
+    <p style="margin-top:28px;">Flere spørgsmål? Skriv til os på <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a></p>
   </div>
 </section>
 
@@ -522,6 +563,36 @@ footer a:hover{ text-decoration:underline; }
   </div>
 </section>
   
+<!-- ===================== COACHING ===================== -->
+<section id="coaching">
+  <div class="wrap">
+    <div class="coach-head">
+      <p class="eyebrow">1:1 coaching</p>
+      <h2>Datingcoaching med Philipp</h2>
+      <p>Parts-work coaching til dating og parforhold, én-til-én. Til når de samme mønstre bliver ved med at dukke op, og du gerne vil forstå dem i stedet for at kæmpe imod dem.</p>
+    </div>
+    <div class="coach-grid">
+      <div class="coach-card">
+        <h3>Mød de dele af dig, der dukker op, når du dater</h3>
+        <p>Måske fryser en del af dig, når nogen viser interesse. En anden arbejder hårdt for at blive kunne lide, og en tredje vælger igen og igen det velkendte. Parts-work er en blid måde at lære de indre stemmer at kende på. Hver af dem prøver at beskytte dig, og når du forstår, hvad den har brug for, får du flere valg i, hvordan du dater.</p>
+        <p style="margin-top:14px;">Den samme rolige, samtykkebaserede tilgang som til aftenerne, bare én-til-én og i dit eget tempo.</p>
+      </div>
+      <div class="coach-card coach-side">
+        <h3>Sådan foregår det</h3>
+        <ul class="coach-facts">
+          <li>Sessioner på 60 minutter i København eller online, på dansk, engelsk eller tysk</li>
+          <li>Start med én intro-session, og vælg derefter, om du vil fortsætte med et forløb på fem sessioner</li>
+          <li>Glidende pris, så økonomien ikke står i vejen</li>
+        </ul>
+        <div class="coach-actions">
+          <a class="btn btn-primary" href="https://parts-work.dk" target="_blank" rel="noopener">Besøg min coaching-hjemmeside →</a>
+          <a class="btn btn-ghost" href="mailto:Philipp@parts-work.dk">Skriv til Philipp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== NEWSLETTER ===================== -->
 <section id="newsletter">
   <div class="wrap narrow" style="text-align:center;">
@@ -547,6 +618,10 @@ footer a:hover{ text-decoration:underline; }
             <option value="65+">65+</option>
           </select>
         </div>
+        <label class="nl-interest">
+          <input type="checkbox" name="fields[coaching_interest]" value="yes">
+          <span>Fortæl mig også om 1:1 coaching med Philipp</span>
+        </label>
         <button data-element="submit" class="formkit-submit">
           <span>Skriv mig på listen</span>
         </button>
@@ -562,7 +637,7 @@ footer a:hover{ text-decoration:underline; }
     <div class="footer-links">
       <a href="https://www.instagram.com/softer_dating/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.facebook.com/profile.php?id=61587041900164" target="_blank" rel="noopener">Facebook</a>
-      <a href="mailto:softerdating@gmail.com">softerdating@gmail.com</a>
+      <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a>
       <a href="../">English version</a>
     </div>
     <a class="btn btn-primary" href="#events">Kom være med:</a>
