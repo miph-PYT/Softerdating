@@ -79,7 +79,7 @@
 <!-- ===================== FONTS ===================== -->
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Cormorant+Garamond:ital,wght@1,600&family=Nunito:wght@800&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
 
 <style>
 /* ===================== CUSTOM FONT ===================== */
@@ -382,27 +382,69 @@ footer a:hover{ text-decoration:underline; }
 }
 .about-coaching{ margin-top:24px; }
 .about-coaching .btn{ margin-top:16px; }
-#coaching{ background:var(--ink); color:var(--petal); padding:96px 0; }
-#coaching .coach-head .eyebrow{ color:var(--peach); }
-
-.coach-head{ text-align:center; max-width:720px; margin:0 auto 44px; }
-.coach-head h2{ color:var(--petal); font-size:clamp(2rem,5vw,3rem); margin-bottom:0.35em; }
-.coach-head p{ color:#E6D3DD; font-size:1.08rem; }
-.coach-grid{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:24px; align-items:stretch; }
-.coach-card{ background:var(--card); border-radius:var(--radius); padding:40px 36px; }
-.coach-card h3{ font-size:1.6rem; color:var(--ink); margin-bottom:0.5em; }
-.coach-card p{ color:var(--ink-soft); }
-.coach-facts{ list-style:none; margin:22px 0 28px; display:grid; gap:12px; }
-.coach-facts li{ display:flex; gap:12px; align-items:baseline; color:var(--ink); }
-.coach-facts li::before{ content:""; flex:0 0 8px; height:8px; border-radius:50%; background:var(--rose); transform:translateY(-2px); }
-.coach-actions{ display:flex; gap:14px; flex-wrap:wrap; }
-.coach-perk{ margin-top:22px; font-size:0.92rem; background:var(--petal); border-radius:14px; padding:14px 18px; }
-.nl-interest{ display:flex; gap:10px; align-items:flex-start; text-align:left; font-size:0.95rem; color:var(--ink); margin:4px 0 16px; cursor:pointer; }
-.nl-interest input{ width:20px; height:20px; margin-top:3px; accent-color:var(--rose-deep); flex:none; }
-.coach-side{ background:var(--blush); }
-.coach-side .coach-perk{ background:var(--card); }
-@media (max-width:820px){ .coach-grid{ grid-template-columns:minmax(0,1fr); } }
-@media (max-width:680px){ .coach-card{ padding:30px 22px; } }
+/* Coaching band in the parts-work.dk look */
+#coaching{ --pw-band:#2f7b70; --pw-raised:#2a6e66; --pw-lilac:#e8d4f0; --pw-cyan:#e0faff; --pw-soft:#cfeee9; --pw-ink:#1d4f80;
+  --pw-voice:"Cormorant Garamond", Georgia, serif; --pw-display:"Nunito", "Arial Rounded MT Bold", system-ui, sans-serif;
+  position:relative; overflow:hidden; background:var(--pw-band); color:var(--pw-cyan); padding:104px 0; text-align:center; }
+#coaching .wrap{ position:relative; z-index:1; max-width:760px; }
+.pw-eyebrow{ color:var(--pw-soft); font-size:0.95rem; margin-bottom:18px; }
+.pw-title{ font-family:var(--pw-voice); font-style:italic; font-weight:600; color:var(--pw-cyan);
+  font-size:clamp(2.1rem,5.2vw,3.4rem); line-height:1.12; margin:0 auto 0.6em; max-width:24ch; text-wrap:balance; }
+.pw-title span{ color:var(--pw-lilac); }
+.pw-lead{ color:var(--pw-cyan); font-size:1.1rem; max-width:38rem; margin:0 auto; }
+.pw-offers{ list-style:none; display:grid; grid-template-columns:repeat(3,minmax(0,1fr)); gap:14px; margin:40px 0 34px; }
+.pw-offers li{ background:var(--pw-raised); border-radius:22px; padding:22px 16px; }
+.pw-offers strong{ display:block; color:var(--pw-cyan); font-weight:500; font-size:1.45rem; letter-spacing:-0.01em; line-height:1.15; white-space:nowrap; }
+.pw-offers span{ display:block; color:var(--pw-soft); font-size:0.92rem; margin-top:6px; }
+.pw-actions{ display:flex; gap:12px; justify-content:center; flex-wrap:wrap; }
+.pw-btn{ display:inline-block; padding:14px 26px; border-radius:999px; font-family:var(--pw-display); font-weight:800; font-size:1rem;
+  text-decoration:none; background:var(--pw-lilac); color:var(--pw-ink); border:2px solid var(--pw-lilac); transition:background-color .15s, color .15s; }
+.pw-btn:hover{ background:var(--pw-cyan); border-color:var(--pw-cyan); }
+.pw-btn.quiet{ background:transparent; color:var(--pw-lilac); }
+.pw-btn.quiet:hover{ background:var(--pw-lilac); color:var(--pw-ink); }
+.pw-btn:focus-visible{ outline:3px solid var(--pw-cyan); outline-offset:3px; }
+.pw-note{ color:var(--pw-soft); font-size:0.9rem; margin-top:22px; }
+.pw-blobs{ position:absolute; inset:0; width:100%; height:100%; z-index:0; pointer-events:none; }
+.pw-blobs g{ transform-box:fill-box; transform-origin:center; animation:pw-float 11s ease-in-out infinite alternate; }
+.pw-blobs g:nth-child(2n){ animation-duration:14s; animation-delay:-4s; }
+.pw-blobs g:nth-child(3n){ animation-duration:9s; animation-delay:-7s; }
+@keyframes pw-float{ from{ transform:translate(0,0) rotate(0deg); } to{ transform:translate(10px,-16px) rotate(8deg); } }
+@media (prefers-reduced-motion:reduce){ .pw-blobs g{ animation:none; } }
+@media (max-width:900px){ .pw-blobs .side{ opacity:.35; } }
+@media (max-width:640px){
+  #coaching{ padding:84px 0; }
+  .pw-offers{ grid-template-columns:minmax(0,1fr); gap:10px; margin:30px 0 28px; }
+  .pw-offers li{ display:flex; align-items:baseline; justify-content:space-between; gap:12px; text-align:left; padding:16px 20px; }
+  .pw-offers strong{ font-size:1.2rem; order:2; }
+  .pw-offers span{ margin:0; }
+  .pw-btn{ width:100%; text-align:center; }
+}
+.nl-form input[type=number]{ -moz-appearance:textfield; appearance:textfield; }
+.nl-form input[type=number]::-webkit-inner-spin-button, .nl-form input[type=number]::-webkit-outer-spin-button{ -webkit-appearance:none; margin:0; }
+.nl-coach{ position:relative; overflow:hidden; display:flex; gap:12px; align-items:center; text-align:left; margin:2px 0 14px;
+  background:linear-gradient(135deg,#2f7b70,#1f5f58); border-radius:16px; padding:14px 16px; cursor:pointer; color:#cfeee9;
+  box-shadow:0 8px 20px -12px rgba(31,95,88,.7); }
+.nl-coach::before, .nl-coach::after{ content:""; position:absolute; border-radius:48% 52% 45% 55% / 55% 45% 55% 45%; pointer-events:none; }
+.nl-coach::before{ width:46px; height:42px; background:#e8d4f0; opacity:.9; right:-14px; top:-16px; }
+.nl-coach::after{ width:30px; height:28px; background:#d4a33a; opacity:.85; right:26px; bottom:-14px; }
+.nl-coach-text{ display:grid; gap:3px; flex:1; position:relative; z-index:1; }
+.nl-coach-title{ font-family:"Cormorant Garamond", Georgia, serif; font-style:italic; font-weight:600; font-size:21px; line-height:1.1; color:#e0faff; }
+.nl-coach-line{ font-size:13px; line-height:1.4; color:#cfeee9; }
+.nl-switch{ display:grid; justify-items:center; gap:4px; flex:none; position:relative; z-index:1; }
+.nl-switch input{ position:absolute; opacity:0; width:1px; height:1px; }
+.nl-knob{ width:42px; height:24px; border-radius:999px; background:rgba(207,238,233,.35); position:relative; transition:background .2s; }
+.nl-knob::after{ content:""; position:absolute; top:3px; left:3px; width:18px; height:18px; border-radius:50%; background:#fff; box-shadow:0 1px 3px rgba(0,0,0,.25); transition:transform .2s; }
+.nl-switch input:checked + .nl-knob{ background:#e8d4f0; }
+.nl-switch input:checked + .nl-knob::after{ transform:translateX(18px); background:#1f5f58; }
+.nl-switch input:focus-visible + .nl-knob{ box-shadow:0 0 0 3px rgba(232,212,240,.6); }
+.nl-switch-label{ font-size:11px; font-weight:700; color:#e0faff; white-space:nowrap; }
+.nl-fine{ font-size:0.85rem; margin:16px auto 0; max-width:420px; }
+.nl-privacy{ max-width:420px; margin:8px auto 0; font-size:0.85rem; color:var(--ink-soft); }
+.nl-privacy summary{ cursor:pointer; text-decoration:underline; }
+.nl-privacy[open]{ text-align:left; }
+.nl-privacy p{ font-size:0.85rem; margin-top:8px; }
+.nl-form select.nl-year{ background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23A84A72' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E"); background-repeat:no-repeat; background-position:right 18px center; padding-right:44px; }
+.nl-form select.nl-year:has(option[value=""]:checked){ color:#A48A99; }
 </style>
 </head>
 <body>
@@ -482,7 +524,7 @@ footer a:hover{ text-decoration:underline; }
         <p class="about-sign">— Philipp - Pyt</p>
         <div class="about-coaching">
           <p>Outside the evenings, I work one-on-one as a dating and relationship coach. If dating keeps bringing up the same patterns, we can look at them together, gently and at your pace.</p>
-          <a class="btn btn-ghost" href="#coaching">Work with me 1:1 →</a>
+          <a class="btn btn-primary" href="#coaching">Work with me 1:1 →</a>
         </div>
       </div>
     </div>
@@ -546,6 +588,33 @@ footer a:hover{ text-decoration:underline; }
   </div>
 </section>
 
+<!-- ===================== COACHING ===================== -->
+<section id="coaching">
+  <svg class="pw-blobs" viewBox="0 0 1200 800" preserveAspectRatio="xMidYMid slice" aria-hidden="true">
+    <g class="side"><path fill="#d4a33a" d="M95 120c28-22 70-10 78 24s-14 66-48 70-60-24-58-52 0-24 28-42z"/></g>
+    <g class="side"><path fill="#5fb3a5" opacity=".75" d="M40 520c40-52 128-40 150 20s-26 128-92 128-104-96-58-148z"/></g>
+    <g class="side"><path fill="#dcb2bd" d="M210 690c30-26 82-14 90 26s-24 64-60 60-60-60-30-86z"/></g>
+    <g class="side"><path fill="#e8d4f0" d="M1040 90c40-34 108-14 118 40s-34 96-84 92-74-98-34-132z"/></g>
+    <g class="side"><path fill="#e0faff" opacity=".9" d="M965 420c26-30 78-24 90 14s-12 72-50 74-66-54-40-88z"/></g>
+    <g class="side"><path fill="#46998d" d="M1060 600c48-40 132-18 136 52s-60 112-118 100-66-112-18-152z"/></g>
+  </svg>
+  <div class="wrap">
+    <p class="pw-eyebrow">1:1 dating coaching with Philipp</p>
+    <h2 class="pw-title">Dating keeps bringing up <span>the same patterns?</span> Let’s meet them with <span>kindness</span>.</h2>
+    <p class="pw-lead">Parts-work coaching for dating and relationships. Maybe one part of you freezes when someone’s interested, another works hard to be liked, another keeps choosing what’s familiar. Each one is trying to protect you. Together we get to know them, so you get more choice in how you date.</p>
+    <ul class="pw-offers">
+      <li><strong>Free</strong><span>20-minute intro call</span></li>
+      <li><strong>from 2,900 kr</strong><span>Coaching packages</span></li>
+      <li><strong>1,200–1,500 kr</strong><span>Single sessions, sliding scale</span></li>
+    </ul>
+    <div class="pw-actions">
+      <a class="pw-btn" href="https://cal.com/philippm/coaching20" target="_blank" rel="noopener">Book a free intro call</a>
+      <a class="pw-btn quiet" href="https://parts-work.dk/#work" target="_blank" rel="noopener">See all offers on parts-work.dk</a>
+    </div>
+    <p class="pw-note">In Copenhagen or online · English, Danish or German</p>
+  </div>
+</section>
+
 <!-- ===================== BLOG ===================== -->
 <section class="blog" id="blog">
   <div class="wrap">
@@ -561,36 +630,6 @@ footer a:hover{ text-decoration:underline; }
   </div>
 </section>
   
-<!-- ===================== COACHING ===================== -->
-<section id="coaching">
-  <div class="wrap">
-    <div class="coach-head">
-      <p class="eyebrow">1:1 coaching</p>
-      <h2>Dating coaching with Philipp</h2>
-      <p>Parts-work coaching for dating and relationships, one-on-one. For when the same patterns keep showing up, and you'd like to understand them instead of fighting them.</p>
-    </div>
-    <div class="coach-grid">
-      <div class="coach-card">
-        <h3>Meet the parts of you that show up when you date</h3>
-        <p>Maybe one part of you freezes when someone's interested. Another works hard to be liked, and another keeps choosing what's familiar. Parts-work is a gentle way of getting to know these inner voices. Each one is trying to protect you, and once you understand what it needs, you get more choice in how you date.</p>
-        <p style="margin-top:14px;">The same calm, consent-based approach as the evenings, just one-on-one and at your own pace.</p>
-      </div>
-      <div class="coach-card coach-side">
-        <h3>How it works</h3>
-        <ul class="coach-facts">
-          <li>60-minute sessions in Copenhagen or online, in English, Danish or German</li>
-          <li>Start with one intake session, then choose whether to continue with a five-session arc</li>
-          <li>Sliding-scale pricing, so cost doesn't stand in the way</li>
-        </ul>
-        <div class="coach-actions">
-          <a class="btn btn-primary" href="https://parts-work.dk" target="_blank" rel="noopener">Visit my coaching website →</a>
-          <a class="btn btn-ghost" href="mailto:Philipp@parts-work.dk">Write to Philipp</a>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
 <!-- ===================== Newsletter Signup ===================== -->
   <!-- ===================== NEWSLETTER ===================== -->
 <section id="newsletter">
@@ -603,29 +642,47 @@ footer a:hover{ text-decoration:underline; }
     <form class="seva-form formkit-form nl-form" action="https://app.kit.com/forms/9555639/subscriptions" method="post" data-sv-form="9555639" data-uid="8008c5d8be" data-format="inline" data-version="5" data-options='{"settings":{"after_subscribe":{"action":"message","success_message":"Almost there! Check your inbox to confirm.","redirect_url":""},"analytics":{},"recaptcha":{"enabled":false}}}'>
       <ul class="formkit-alert formkit-alert-error" data-element="errors" data-group="alert"></ul>
       <div data-element="fields" class="seva-fields formkit-fields">
+        <input type="hidden" name="tags[]" value="26167042">
+        <input type="hidden" name="tags[]" value="26167044">
         <div class="formkit-field">
-          <input class="formkit-input" name="email_address" aria-label="Email address" placeholder="Your email" required type="email">
+          <input class="formkit-input" name="fields[first_name]" type="text" autocomplete="given-name" aria-label="First name" placeholder="Your first name">
         </div>
         <div class="formkit-field">
-          <select class="formkit-input" name="fields[preferred_age_range]" aria-label="Preferred age range" required>
-            <option value="" disabled selected>Preferred age range</option>
-            <option value="18-25">18–25</option>
-            <option value="25-35">25–35</option>
-            <option value="35-45">35–45</option>
-            <option value="45-55">45–55</option>
-            <option value="55-65">55–65</option>
-            <option value="65+">65+</option>
+          <input class="formkit-input" name="email_address" aria-label="Email" placeholder="Your email" required type="email" autocomplete="email">
+        </div>
+        <div class="formkit-field">
+          <select class="formkit-input nl-year" name="fields[year_of_birth]" aria-label="Year of birth (optional)" autocomplete="bday-year">
+            <option value="" selected>Year of birth (optional)</option>
           </select>
+          <script>
+            (function(){
+              var s=document.currentScript.previousElementSibling, y=new Date().getFullYear(), html='';
+              for(var i=y-18;i>=y-90;i--) html+='<option value="'+i+'">'+i+'</option>';
+              s.insertAdjacentHTML('beforeend', html);
+            })();
+          </script>
         </div>
-        <label class="nl-interest">
-          <input type="checkbox" name="fields[coaching_interest]" value="yes">
-          <span>Also tell me about 1:1 coaching with Philipp</span>
+        <label class="nl-coach" for="nl-coaching">
+          <span class="nl-coach-text">
+            <span class="nl-coach-title">Parts-work coaching</span>
+            <span class="nl-coach-line">Sometimes the hard part of dating isn't meeting people, but what comes up in you. That's what I work with one to one.</span>
+          </span>
+          <span class="nl-switch"><input type="checkbox" name="tags[]" value="26167050" id="nl-coaching" role="switch"><span class="nl-knob"></span><span class="nl-switch-label">Tell me more</span></span>
         </label>
         <button data-element="submit" class="formkit-submit">
           <span>Put me on the list</span>
         </button>
       </div>
     </form>
+    <p class="nl-fine">By signing up, you agree that Philipp from Softer Dating emails you event invitations and occasional news. Unsubscribe anytime.</p>
+    <details class="nl-privacy">
+      <summary>How I handle your data</summary>
+        <p><strong>Who:</strong> Philipp Mitterhofer, Softer Dating (sole proprietor, CVR 41445726). Contact: <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a>.</p>
+        <p><strong>What and why:</strong> Your first name, your email, your year of birth if you give it, your language and, if you switch it on, your interest in coaching. I use them only to send you what you signed up for, and your year of birth to invite you to evenings for your age group. The basis is your consent.</p>
+        <p><strong>Where:</strong> In my email tool, Kit, which sends the emails for me. I never sell or share your details.</p>
+        <p><strong>How long:</strong> Until you unsubscribe. Then you’re removed from the list.</p>
+        <p><strong>Your rights:</strong> You can ask to see, correct or delete your data at any time, and withdraw consent with one click in any email. You can also complain to Datatilsynet.</p>
+    </details>
   </div>
 </section>
 

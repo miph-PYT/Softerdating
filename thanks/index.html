@@ -121,6 +121,16 @@
     border-color: var(--accent);
     box-shadow: 0 0 0 4px rgba(200, 102, 90, 0.15);
   }
+  select.year {
+    font: inherit; font-size: 16px; width: 100%;
+    padding: 13px 44px 13px 15px; border: 1.5px solid var(--line); border-radius: 14px; color: var(--ink); cursor: pointer;
+    appearance: none; -webkit-appearance: none;
+    background: #fff url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='12' height='8'%3E%3Cpath d='M1 1l5 5 5-5' fill='none' stroke='%23a94f45' stroke-width='2' stroke-linecap='round'/%3E%3C/svg%3E") no-repeat right 16px center;
+    transition: border-color 0.2s, box-shadow 0.2s;
+  }
+  select.year:has(option[value=""]:checked) { color: var(--muted); }
+  select.year:focus { outline: none; border-color: var(--accent); box-shadow: 0 0 0 4px rgba(200, 102, 90, 0.15); }
+  @media (max-height: 760px) { select.year { padding-top: 11px; padding-bottom: 11px; } }
   .langs { display: flex; gap: 8px; flex-wrap: wrap; }
   .chip input { position: absolute; opacity: 0; pointer-events: none; }
   .chip span {
@@ -279,6 +289,16 @@
       <form id="signup" novalidate>
         <input type="text" name="first_name" autocomplete="given-name" placeholder="Your first name" aria-label="First name">
         <input type="email" name="email_address" autocomplete="email" placeholder="Your email" aria-label="Email" required>
+        <select class="year" name="year_of_birth" form="none" aria-label="Year of birth (optional)" autocomplete="bday-year">
+          <option value="" selected>Year of birth (optional)</option>
+        </select>
+        <script>
+          (function(){
+            var s=document.currentScript.previousElementSibling, y=new Date().getFullYear(), html='';
+            for(var i=y-18;i>=y-90;i--) html+='<option value="'+i+'">'+i+'</option>';
+            s.insertAdjacentHTML('beforeend', html);
+          })();
+        </script>
         <label class="coach-card" for="coaching">
           <span class="coach-text">
             <span class="coach-title">Parts-work coaching</span>
@@ -301,7 +321,7 @@
       <details class="privacy">
         <summary>How I handle your data</summary>
         <p><strong>Who:</strong> Philipp Mitterhofer, Softer Dating (sole proprietor, CVR 41445726). Contact: <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a>.</p>
-        <p><strong>What and why:</strong> Your first name, your email, your language choice and, if you switch it on, your interest in coaching. I use them only to send you what you signed up for. The basis is your consent.</p>
+        <p><strong>What and why:</strong> Your first name, your email, your year of birth if you give it, your language choice and, if you switch it on, your interest in coaching. I use them only to send you what you signed up for, and your year of birth to invite you to evenings for your age group. The basis is your consent.</p>
         <p><strong>Where:</strong> In my email tool, Kit, which sends the emails for me. I never sell or share your details.</p>
         <p><strong>How long:</strong> Until you unsubscribe. Then you're removed from the list.</p>
         <p><strong>Your rights:</strong> You can ask to see, correct or delete your data at any time, and withdraw consent with one click in any email. You can also complain to Datatilsynet.</p>
@@ -373,6 +393,7 @@
         body: JSON.stringify({
           email,
           first_name: form.first_name.value.trim(),
+          year_of_birth: form.querySelector('select.year').value,
           tags,
           lang: document.querySelector('input[name=lang]:checked').value,
           coaching: document.getElementById('coaching').checked
@@ -386,6 +407,7 @@
     form.querySelectorAll('input[name="tags[]"]').forEach(i => i.remove());
     tags.forEach(t => { const i = document.createElement('input'); i.type = 'hidden'; i.name = 'tags[]'; i.value = t; form.appendChild(i); });
     form.first_name.name = 'fields[first_name]';
+    const yr = form.querySelector('select.year'); yr.removeAttribute('form'); yr.name = 'fields[year_of_birth]';
     allowLeave = true;
     form.action = KIT_FORM_URL; form.method = 'post';
     HTMLFormElement.prototype.submit.call(form);
@@ -405,6 +427,7 @@
   function resetForm() {
     clearTimeout(resetTimer); clearInterval(tick);
     const fn = form.elements['fields[first_name]']; if (fn) fn.name = 'first_name';
+    const yr = form.querySelector('select.year'); if (yr) { yr.name = 'year_of_birth'; yr.setAttribute('form', 'none'); }
     form.reset();
     document.getElementById('coaching').checked = false;
     document.querySelector('input[name=lang][value=EN]').checked = true;
