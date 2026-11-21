@@ -344,8 +344,8 @@
   const form = document.getElementById('signup');
   const err = document.getElementById('error');
   // ---- Signup: sent to Kit in the background, so people never leave this page ----
-  // Kit "API Key" (v3, the public one) from Kit → Settings → Developer. Empty = fallback mode.
-  const KIT_API_KEY = '';
+  // Google Apps Script web app ("Softer Dating signups"): saves to a Google Sheet and passes on to Kit.
+  const SIGNUP_ENDPOINT = 'https://script.google.com/macros/s/AKfycbzMaPqtnFopOEmBYdj6EZRz_tf8Dwfk1jtW_PvsCVxIXBywhaFoQMtTxpLJjL85il9r/exec';
   const KIT_FORM_ID = '10213334';
   const card = document.getElementById('card');
   const btn = form.querySelector('button[type=submit]');
@@ -361,13 +361,20 @@
     return Promise.race([promise, new Promise((_, rej) => setTimeout(() => rej(new Error('timeout')), ms))]);
   }
   async function sendToKit(email, tags) {
-    if (KIT_API_KEY) {
-      const r = await withTimeout(fetch('https://api.convertkit.com/v3/forms/' + KIT_FORM_ID + '/subscribe', {
+    if (SIGNUP_ENDPOINT) {
+      const r = await withTimeout(fetch(SIGNUP_ENDPOINT, {
         method: 'POST',
-        headers: { 'Content-Type': 'application/json; charset=utf-8' },
-        body: JSON.stringify({ api_key: KIT_API_KEY, email, first_name: form.first_name.value.trim(), tags: tags.map(Number) })
-      }), 15000);
-      if (!r.ok) throw new Error('kit ' + r.status);
+        headers: { 'Content-Type': 'text/plain;charset=utf-8' },
+        body: JSON.stringify({
+          email,
+          first_name: form.first_name.value.trim(),
+          tags,
+          lang: document.querySelector('input[name=lang]:checked').value,
+          coaching: document.getElementById('coaching').checked
+        })
+      }), 20000);
+      const j = await r.json();
+      if (!j.ok) throw new Error(j.error || 'failed');
       return;
     }
     // No key yet: plain form post (Kit may show its own pages), then Kit sends people back to #almost
