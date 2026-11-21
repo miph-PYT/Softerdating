@@ -371,6 +371,38 @@ footer a{ color:var(--peach); text-decoration:none; }
 footer a:hover{ text-decoration:underline; }
 .footer-links{ display:flex; gap:24px; justify-content:center; margin:22px 0 30px; flex-wrap:wrap; }
 .tiny{ font-size:0.8rem; opacity:0.7; margin-top:26px; }
+
+/* ===== Coaching additions ===== */
+#about .wrap.narrow{ max-width:920px; }
+.about-grid{ grid-template-columns:240px minmax(0,1fr); gap:56px; align-items:start; }
+.about-photo{ margin-top:6px; }
+@media (max-width:740px){
+  .about-grid{ grid-template-columns:minmax(0,1fr); gap:24px; }
+  .about-photo{ max-width:200px; }
+}
+.about-coaching{ margin-top:24px; }
+.about-coaching .btn{ margin-top:16px; }
+#coaching{ background:var(--ink); color:var(--petal); padding:96px 0; }
+#coaching .coach-head .eyebrow{ color:var(--peach); }
+
+.coach-head{ text-align:center; max-width:720px; margin:0 auto 44px; }
+.coach-head h2{ color:var(--petal); font-size:clamp(2rem,5vw,3rem); margin-bottom:0.35em; }
+.coach-head p{ color:#E6D3DD; font-size:1.08rem; }
+.coach-grid{ display:grid; grid-template-columns:minmax(0,1.1fr) minmax(0,1fr); gap:24px; align-items:stretch; }
+.coach-card{ background:var(--card); border-radius:var(--radius); padding:40px 36px; }
+.coach-card h3{ font-size:1.6rem; color:var(--ink); margin-bottom:0.5em; }
+.coach-card p{ color:var(--ink-soft); }
+.coach-facts{ list-style:none; margin:22px 0 28px; display:grid; gap:12px; }
+.coach-facts li{ display:flex; gap:12px; align-items:baseline; color:var(--ink); }
+.coach-facts li::before{ content:""; flex:0 0 8px; height:8px; border-radius:50%; background:var(--rose); transform:translateY(-2px); }
+.coach-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+.coach-perk{ margin-top:22px; font-size:0.92rem; background:var(--petal); border-radius:14px; padding:14px 18px; }
+.nl-interest{ display:flex; gap:10px; align-items:flex-start; text-align:left; font-size:0.95rem; color:var(--ink); margin:4px 0 16px; cursor:pointer; }
+.nl-interest input{ width:20px; height:20px; margin-top:3px; accent-color:var(--rose-deep); flex:none; }
+.coach-side{ background:var(--blush); }
+.coach-side .coach-perk{ background:var(--card); }
+@media (max-width:820px){ .coach-grid{ grid-template-columns:minmax(0,1fr); } }
+@media (max-width:680px){ .coach-card{ padding:30px 22px; } }
 </style>
 </head>
 <body>
@@ -384,6 +416,7 @@ footer a:hover{ text-decoration:underline; }
       <a href="#events">Events</a>
       <a href="#faq">FAQ</a>
       <a href="#blog">Blog</a>
+      <a href="#coaching">1:1 Coaching</a>
       <a class="lang-switch" href="da/" title="Dansk version">DA</a>
       <a class="btn btn-primary cta" href="#events" style="padding:10px 22px;">Join an event</a>
     </div>
@@ -397,7 +430,7 @@ footer a:hover{ text-decoration:underline; }
     <p class="eyebrow">In-person dating events · Copenhagen</p>
     <h1>Softer Dating,</h1>
     <h2>The Alternative <br>to Online Dating</h2>
-    <p class="lede">Tired of swiping? So were we. Softer Dating is is the alternative to online dating. A space for real connection, for slowing down and meeting others eye to eye.</p>
+    <p class="lede">Tired of swiping? So were we. Softer Dating is the alternative to online dating. A space for real connection, for slowing down and meeting others eye to eye.</p>
     <div class="hero-ctas">
       <a class="btn btn-primary" href="#events">See upcoming events</a>
       <a class="btn btn-ghost" href="#why">How it works</a>
@@ -447,6 +480,10 @@ footer a:hover{ text-decoration:underline; }
         <p>Softer Dating grew out of a simple frustration: I kept hearing (and feeling) that swiping leaves us lonelier than before. So I built the thing I wished existed, a warm room with gentle guidance where real people can meet authentically.</p>
         <p>Every exercise we do is grounded in frameworks I work with daily: the Wheel of Consent, nonviolent communication, and somatic practice. Mostly though, it's grounded in the belief that everyone deserves to be met with curiosity.</p>
         <p class="about-sign">— Philipp - Pyt</p>
+        <div class="about-coaching">
+          <p>Outside the evenings, I work one-on-one as a dating and relationship coach. If dating keeps bringing up the same patterns, we can look at them together, gently and at your pace.</p>
+          <a class="btn btn-ghost" href="#coaching">Work with me 1:1 →</a>
+        </div>
       </div>
     </div>
   </div>
@@ -489,7 +526,7 @@ footer a:hover{ text-decoration:underline; }
     </details>
     <details>
       <summary>What should I wear?</summary>
-      <p class="answer">Something you can move in freely, we might sitting on (soft) floors. At the same time: this is a dating event, so wear something that makes you feel comfortable, confident and attractive. Go easy on the perfume; pheromone matching is a thing! ;)</p>
+      <p class="answer">Something you can move in freely, we might be sitting on (soft) floors. At the same time: this is a dating event, so wear something that makes you feel comfortable, confident and attractive. Go easy on the perfume; pheromone matching is a thing! ;)</p>
     </details>
     <details>
       <summary>What if I want to connect with someone after?</summary>
@@ -498,6 +535,11 @@ footer a:hover{ text-decoration:underline; }
     <details>
       <summary>How is this different from speed dating?</summary>
       <p class="answer">Most dating events are about efficiency: meet as many people as possible in limited time. We slow down. Way down. Less interviewing, more sensing, playing, moving, you'll notice someone's presence, the small details of how they move, the energy between you. That's where real connection happens.</p>
+    </details>
+
+    <details open>
+      <summary>Can I work with Philipp one-on-one?</summary>
+      <p class="answer">Yes. Alongside the events, Philipp coaches individuals, often on exactly what dating stirs up. <a href="#coaching">Read about 1:1 coaching</a> or visit <a href="https://parts-work.dk" target="_blank" rel="noopener">parts-work.dk</a>.</p>
     </details>
 
     <p style="margin-top:28px;">More questions? Write us at <a href="mailto:softerdating@gmail.com">softerdating@gmail.com</a></p>
@@ -519,6 +561,36 @@ footer a:hover{ text-decoration:underline; }
   </div>
 </section>
   
+<!-- ===================== COACHING ===================== -->
+<section id="coaching">
+  <div class="wrap">
+    <div class="coach-head">
+      <p class="eyebrow">1:1 coaching</p>
+      <h2>Dating coaching with Philipp</h2>
+      <p>Parts-work coaching for dating and relationships, one-on-one. For when the same patterns keep showing up, and you'd like to understand them instead of fighting them.</p>
+    </div>
+    <div class="coach-grid">
+      <div class="coach-card">
+        <h3>Meet the parts of you that show up when you date</h3>
+        <p>Maybe one part of you freezes when someone's interested. Another works hard to be liked, and another keeps choosing what's familiar. Parts-work is a gentle way of getting to know these inner voices. Each one is trying to protect you, and once you understand what it needs, you get more choice in how you date.</p>
+        <p style="margin-top:14px;">The same calm, consent-based approach as the evenings, just one-on-one and at your own pace.</p>
+      </div>
+      <div class="coach-card coach-side">
+        <h3>How it works</h3>
+        <ul class="coach-facts">
+          <li>60-minute sessions in Copenhagen or online, in English, Danish or German</li>
+          <li>Start with one intake session, then choose whether to continue with a five-session arc</li>
+          <li>Sliding-scale pricing, so cost doesn't stand in the way</li>
+        </ul>
+        <div class="coach-actions">
+          <a class="btn btn-primary" href="https://parts-work.dk" target="_blank" rel="noopener">Visit my coaching website →</a>
+          <a class="btn btn-ghost" href="mailto:Philipp@parts-work.dk">Write to Philipp</a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ===================== Newsletter Signup ===================== -->
   <!-- ===================== NEWSLETTER ===================== -->
 <section id="newsletter">
@@ -545,6 +617,10 @@ footer a:hover{ text-decoration:underline; }
             <option value="65+">65+</option>
           </select>
         </div>
+        <label class="nl-interest">
+          <input type="checkbox" name="fields[coaching_interest]" value="yes">
+          <span>Also tell me about 1:1 coaching with Philipp</span>
+        </label>
         <button data-element="submit" class="formkit-submit">
           <span>Put me on the list</span>
         </button>
@@ -562,6 +638,7 @@ footer a:hover{ text-decoration:underline; }
       <a href="https://www.instagram.com/softer_dating/" target="_blank" rel="noopener">Instagram</a>
       <a href="https://www.facebook.com/profile.php?id=61587041900164" target="_blank" rel="noopener">Facebook</a>
       <a href="mailto:softerdatingcph@gmail.com">softerdating@gmail.com</a>
+      <a href="https://parts-work.dk" target="_blank" rel="noopener">1:1 coaching with Philipp →</a>
     </div>
     <a class="btn btn-primary" href="#events">Join the next evening</a>
     <p class="tiny">© <span id="year"></span> Softer Dating</p>
