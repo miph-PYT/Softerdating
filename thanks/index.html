@@ -386,6 +386,7 @@
     form.querySelectorAll('input[name="tags[]"]').forEach(i => i.remove());
     tags.forEach(t => { const i = document.createElement('input'); i.type = 'hidden'; i.name = 'tags[]'; i.value = t; form.appendChild(i); });
     form.first_name.name = 'fields[first_name]';
+    allowLeave = true;
     form.action = KIT_FORM_URL; form.method = 'post';
     HTMLFormElement.prototype.submit.call(form);
     return new Promise(() => {});
@@ -448,6 +449,15 @@
   window.addEventListener('popstate', () => {
     spare = false;
     resetForm();
+  });
+  // ---- Warn before leaving (closing the tab, reloading, typing another address) ----
+  // Browsers show their own fixed "Leave site?" text and only after someone has touched the page.
+  let allowLeave = false;
+  document.querySelectorAll('a[href]').forEach(a => a.addEventListener('click', () => { allowLeave = true; }));
+  window.addEventListener('beforeunload', (e) => {
+    if (allowLeave || card.classList.contains('confirmed-state')) return;
+    e.preventDefault();
+    e.returnValue = '';
   });
 </script>
 </body>
