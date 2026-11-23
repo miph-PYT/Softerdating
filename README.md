@@ -18,3 +18,7 @@ feed at /blog/feed.xml. Every post ends with a box showing the next event from `
 After a post is live, go to medium.com → your profile → Stories → **Import a story**, and paste the post's
 softerdating.dk address. Medium copies it and marks softerdating.dk as the original, so Google gives
 your site the credit.
+
+### Drafts you can preview online
+Add `draft: true` and `sitemap: false` at the top of a post in `_posts/`. It is then live at its own address
+but hidden from the blog page, the homepage, Google and the RSS feed. Delete both lines to publish.

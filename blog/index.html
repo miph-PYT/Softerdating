@@ -10,9 +10,10 @@ description: Essays and field notes from Softer Dating in Copenhagen, on dating 
     <p>Essays and field notes from our events: on dating app fatigue, embodiment, and meeting people in the flesh.</p>
   </header>
 
-  {%- if site.posts.size > 0 %}
+  {%- assign posts = site.posts | where_exp: "post", "post.draft != true" -%}
+  {%- if posts.size > 0 %}
   <div class="blog-grid">
-    {%- for post in site.posts %}
+    {%- for post in posts %}
     <a class="post-card" href="{{ post.url }}"{% if post.lang == "da" %} lang="da"{% endif %}>
       <time datetime="{{ post.date | date_to_xmlschema }}">{{ post.date | date: "%-d %b %Y" }}{% if post.lang == "da" %} · Dansk{% endif %}</time>
       <h2>{{ post.title }}</h2>

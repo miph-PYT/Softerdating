@@ -9,6 +9,9 @@
 
 <title>{% if page.title %}{{ page.title }} · {% endif %}Softer Dating{% if page.layout != "post" %} · Blog{% endif %}</title>
 <meta name="description" content="{{ desc | escape }}">
+{%- if page.draft %}
+<meta name="robots" content="noindex">
+{%- endif %}
 <link rel="canonical" href="{{ page.url | absolute_url }}">
 <link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
 <link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">

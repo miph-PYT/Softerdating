@@ -1,7 +1,8 @@
 ---
 layout: null
 ---
-[{% for post in site.posts limit:6 %}
+{%- assign posts = site.posts | where_exp: "post", "post.draft != true" -%}
+[{% for post in posts limit:6 %}
   {
     "title": {{ post.title | jsonify }},
     "url": {{ post.url | jsonify }},
