@@ -1,0 +1,197 @@
+<!DOCTYPE html>
+{%- assign da = false -%}
+{%- if page.lang == "da" -%}{%- assign da = true -%}{%- endif -%}
+{%- assign desc = page.description | default: page.excerpt | default: site.description | strip_html | strip_newlines | truncate: 160 -%}
+<html lang="{% if da %}da{% else %}en{% endif %}">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+<title>{% if page.title %}{{ page.title }} · {% endif %}Softer Dating{% if page.layout != "post" %} · Blog{% endif %}</title>
+<meta name="description" content="{{ desc | escape }}">
+<link rel="canonical" href="{{ page.url | absolute_url }}">
+<link rel="icon" href="/icons/icon.svg" type="image/svg+xml">
+<link rel="icon" href="/icons/favicon-32.png" sizes="32x32" type="image/png">
+<link rel="apple-touch-icon" href="/icons/apple-touch-icon.png">
+<meta name="theme-color" content="#F9F2F3">
+<meta property="og:type" content="{% if page.layout == 'post' %}article{% else %}website{% endif %}">
+<meta property="og:title" content="{{ page.title | default: 'Softer Dating Blog' | escape }}">
+<meta property="og:description" content="{{ desc | escape }}">
+<meta property="og:url" content="{{ page.url | absolute_url }}">
+<meta property="og:site_name" content="Softer Dating">
+{%- if page.image %}
+<meta property="og:image" content="{{ page.image | absolute_url }}">
+{%- endif %}
+<meta name="twitter:card" content="summary_large_image">
+{% feed_meta %}
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Young+Serif&family=Karla:ital,wght@0,400;0,500;0,700;1,400&display=swap" rel="stylesheet">
+
+<style>
+@font-face{
+  font-family:'TAN Vivre Libre';
+  src:url('/fonts/TAN-VIVRE-LIBRE-Regular.otf') format('opentype');
+  font-weight:400; font-style:normal; font-display:swap;
+}
+:root{
+  --petal:#F9F2F3; --blush:#F1E2E7; --ink:#43273B; --ink-soft:#7A5F70;
+  --rose:#C26A8D; --rose-deep:#A84A72; --peach:#F2C5A6; --lilac:#CDB8DC;
+  --card:#FFFFFF; --radius:26px;
+  --display:'TAN Vivre Libre','Young Serif',Georgia,serif;
+  --body:'Karla','Helvetica Neue',sans-serif;
+}
+*{ box-sizing:border-box; margin:0; padding:0; }
+body{
+  font-family:var(--body); background:var(--petal); color:var(--ink);
+  line-height:1.65; font-size:17px; -webkit-font-smoothing:antialiased;
+}
+h1,h2,h3{ font-family:var(--display); font-weight:400; line-height:1.15; }
+h1{ font-size:clamp(2.1rem, 5.5vw, 3.4rem); letter-spacing:-0.01em; }
+h2{ font-size:clamp(1.5rem, 3.4vw, 2rem); }
+h3{ font-size:1.2rem; }
+p{ color:var(--ink-soft); }
+a{ color:var(--rose-deep); }
+strong{ color:var(--ink); }
+.wrap{ max-width:1040px; margin:0 auto; padding:0 24px; }
+.narrow{ max-width:680px; margin-left:auto; margin-right:auto; }
+.eyebrow{
+  font-size:0.78rem; font-weight:700; letter-spacing:0.18em;
+  text-transform:uppercase; color:var(--rose); margin-bottom:14px;
+}
+
+/* nav */
+nav{
+  position:sticky; top:0; z-index:50;
+  background:color-mix(in srgb, var(--petal) 88%, transparent);
+  backdrop-filter:blur(10px);
+  border-bottom:1px solid color-mix(in srgb, var(--ink) 8%, transparent);
+}
+.nav-inner{ display:flex; align-items:center; justify-content:space-between; padding:14px 24px; max-width:1040px; margin:0 auto; }
+.logo{ font-family:var(--display); font-size:1.15rem; color:var(--ink); text-decoration:none; display:flex; align-items:center; gap:9px; }
+.logo-dot{
+  width:13px; height:13px; border-radius:50%;
+  background:radial-gradient(circle at 35% 35%, var(--peach), var(--rose));
+  animation:breathe-dot 8s ease-in-out infinite;
+}
+@keyframes breathe-dot{ 0%,100%{ transform:scale(1); } 50%{ transform:scale(1.25); } }
+@media (prefers-reduced-motion: reduce){ .logo-dot{ animation:none; } }
+.nav-links{ display:flex; gap:26px; align-items:center; }
+.nav-links a{ text-decoration:none; color:var(--ink-soft); font-weight:500; font-size:0.95rem; }
+.nav-links a:hover{ color:var(--ink); }
+.nav-links a.cta{ color:#fff; }
+@media (max-width:680px){ .nav-links a:not(.cta){ display:none; } }
+
+/* buttons */
+.btn{
+  display:inline-block; text-decoration:none; font-weight:700;
+  padding:14px 30px; border-radius:999px; font-size:1rem;
+  transition:transform .25s ease;
+}
+.btn-primary{ background:var(--rose-deep); color:#fff; box-shadow:0 8px 24px color-mix(in srgb, var(--rose-deep) 30%, transparent); }
+.btn-primary:hover{ transform:translateY(-2px); }
+.btn-ghost{ color:var(--ink); border:1.5px solid color-mix(in srgb, var(--ink) 25%, transparent); }
+.btn-ghost:hover{ border-color:var(--ink); }
+.btn:focus-visible, a:focus-visible{ outline:3px solid var(--lilac); outline-offset:3px; }
+
+/* blog list */
+.blog-head{ padding:84px 0 40px; text-align:center; }
+.blog-head p{ font-size:1.1rem; margin-top:16px; }
+.blog-grid{ display:grid; grid-template-columns:repeat(auto-fit, minmax(280px,1fr)); gap:22px; padding-bottom:96px; }
+.post-card{
+  background:var(--card); border-radius:var(--radius); padding:30px 28px;
+  text-decoration:none; display:block; transition:transform .25s ease;
+}
+.post-card:hover{ transform:translateY(-4px); }
+.post-card h2{ font-size:1.35rem; color:var(--ink); margin:10px 0; }
+.post-card time, .post-meta{ font-size:0.8rem; letter-spacing:0.1em; text-transform:uppercase; color:var(--rose); font-weight:700; }
+.post-card p{ font-size:0.95rem; }
+.empty{
+  background:var(--card); border-radius:var(--radius); padding:44px 32px;
+  text-align:center; margin-bottom:96px;
+}
+.empty p{ margin:10px 0 24px; }
+
+/* single post */
+article.wrap{ padding:72px 24px 40px; }
+.post-header{ text-align:center; margin-bottom:44px; }
+.post-header h1{ margin:14px 0 18px; }
+.post-header .lede{ font-size:1.2rem; }
+.post-image{ width:100%; border-radius:var(--radius); margin:0 0 40px; display:block; }
+.prose{ font-size:1.1rem; line-height:1.8; }
+.prose > * + *{ margin-top:1.2em; }
+.prose p, .prose li{ color:var(--ink); }
+.prose h2{ margin-top:1.9em; }
+.prose h3{ margin-top:1.6em; }
+.prose ul, .prose ol{ padding-left:1.3em; }
+.prose li + li{ margin-top:0.4em; }
+.prose blockquote{
+  font-family:var(--display); font-size:1.4rem; line-height:1.4; color:var(--ink);
+  border-left:3px solid var(--rose); padding:4px 0 4px 24px; margin:1.8em 0;
+}
+.prose blockquote p{ color:var(--ink); }
+.prose img{ max-width:100%; border-radius:18px; }
+.prose hr{ border:0; height:1px; background:color-mix(in srgb, var(--ink) 15%, transparent); margin:2.4em 0; }
+
+.post-cta{
+  background:var(--blush); border-radius:var(--radius);
+  padding:40px 32px; text-align:center; margin:56px 0 24px;
+}
+.post-cta h2{ margin-bottom:10px; }
+.next-event{ margin:6px 0 24px; }
+.next-event strong{ display:block; font-size:1.05rem; }
+.cta-row{ display:flex; gap:14px; justify-content:center; flex-wrap:wrap; }
+.back{ display:inline-block; margin:8px 0 80px; text-decoration:none; font-weight:500; }
+
+/* footer */
+footer{ padding:70px 0 50px; text-align:center; background:var(--ink); color:#E9D9E2; }
+footer .logo{ color:#fff; justify-content:center; margin-bottom:18px; font-size:1.4rem; }
+footer p{ color:#C9AFC0; font-size:0.95rem; }
+footer a{ color:var(--peach); text-decoration:none; }
+footer a:hover{ text-decoration:underline; }
+.footer-links{ display:flex; gap:24px; justify-content:center; margin:22px 0 30px; flex-wrap:wrap; }
+.tiny{ font-size:0.8rem; opacity:0.7; margin-top:26px; }
+</style>
+</head>
+<body>
+
+{%- if da %}
+  {%- assign home = "/da/" -%}
+{%- else %}
+  {%- assign home = "/" -%}
+{%- endif %}
+
+<nav>
+  <div class="nav-inner">
+    <a class="logo" href="{{ home }}"><span class="logo-dot"></span>Softer Dating</a>
+    <div class="nav-links">
+      <a href="{{ home }}{% if da %}#about{% else %}#why{% endif %}">{% if da %}Om{% else %}Why{% endif %}</a>
+      <a href="{{ home }}#events">Events</a>
+      <a href="/blog/">Blog</a>
+      <a class="btn btn-primary cta" href="{{ home }}#events" style="padding:10px 22px;">{% if da %}Find et event{% else %}Join an event{% endif %}</a>
+    </div>
+  </div>
+</nav>
+
+<main>
+{{ content }}
+</main>
+
+<footer>
+  <div class="wrap">
+    <a class="logo" href="{{ home }}"><span class="logo-dot"></span>Softer Dating</a>
+    <p>{% if da %}Det kropslige alternativ til online dating. København og omegn.{% else %}The embodied alternative to online dating. Copenhagen &amp; beyond.{% endif %}</p>
+    <div class="footer-links">
+      <a href="https://www.instagram.com/softer_dating/" target="_blank" rel="noopener">Instagram</a>
+      <a href="https://www.facebook.com/profile.php?id=61587041900164" target="_blank" rel="noopener">Facebook</a>
+      <a href="mailto:hello@softerdating.dk">hello@softerdating.dk</a>
+      <a href="/blog/feed.xml">RSS</a>
+    </div>
+    <a class="btn btn-primary" href="{{ home }}#events">{% if da %}Kom med til næste aften{% else %}Join the next evening{% endif %}</a>
+    <p class="tiny">© {{ site.time | date: "%Y" }} Softer Dating</p>
+  </div>
+</footer>
+
+</body>
+</html>

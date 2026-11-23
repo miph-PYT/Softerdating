@@ -1,0 +1,85 @@
+---
+layout: base
+---
+{%- assign da = false -%}
+{%- if page.lang == "da" -%}{%- assign da = true -%}{%- endif -%}
+{%- if da -%}{%- assign home = "/da/" -%}{%- else -%}{%- assign home = "/" -%}{%- endif -%}
+<article class="wrap">
+  <div class="narrow">
+    <header class="post-header">
+      <p class="post-meta"><time datetime="{{ page.date | date_to_xmlschema }}">{{ page.date | date: "%-d %b %Y" }}</time>{% if page.author %} · {{ page.author }}{% endif %}</p>
+      <h1>{{ page.title }}</h1>
+      {%- if page.description %}
+      <p class="lede">{{ page.description }}</p>
+      {%- endif %}
+    </header>
+
+    {%- if page.image %}
+    <img class="post-image" src="{{ page.image }}" alt="{{ page.image_alt | default: page.title | escape }}">
+    {%- endif %}
+
+    <div class="prose">
+      {{ content }}
+    </div>
+
+    <aside class="post-cta">
+      <p class="eyebrow">{% if da %}Prøv det i virkeligheden{% else %}Try it in person{% endif %}</p>
+      <h2>{% if da %}Dating, i et roligere tempo{% else %}Dating, slowed down{% endif %}</h2>
+      <div class="next-event" id="next-event">
+        <p>{% if da %}Guidede, legende datingaftener i København, øjne i øjne i stedet for skærm til skærm.{% else %}Guided, playful dating evenings in Copenhagen: eye to eye instead of screen to screen.{% endif %}</p>
+      </div>
+      <div class="cta-row">
+        <a class="btn btn-primary" id="next-event-btn" href="{{ home }}#events">{% if da %}Se kommende events{% else %}See upcoming events{% endif %}</a>
+        <a class="btn btn-ghost" href="{{ home }}#newsletter">{% if da %}Få nye indlæg på mail{% else %}Get new posts by email{% endif %}</a>
+      </div>
+    </aside>
+
+    <a class="back" href="/blog/">← {% if da %}Alle indlæg{% else %}All posts{% endif %}</a>
+  </div>
+</article>
+
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "BlogPosting",
+  "headline": {{ page.title | jsonify }},
+  "description": {{ page.description | default: page.excerpt | strip_html | strip_newlines | truncate: 160 | jsonify }},
+  "datePublished": "{{ page.date | date_to_xmlschema }}",
+  "inLanguage": "{% if da %}da{% else %}en{% endif %}",
+  "url": "{{ page.url | absolute_url }}",
+  {%- if page.image %}
+  "image": "{{ page.image | absolute_url }}",
+  {%- endif %}
+  "author": { "@type": "Person", "name": {{ page.author | default: "Philipp Mitterhofer" | jsonify }} },
+  "publisher": { "@type": "Organization", "name": "Softer Dating", "url": "https://www.softerdating.dk/" }
+}
+</script>
+
+<!-- Shows the next upcoming event from events.js in the box above -->
+<script src="/events.js"></script>
+<script>
+(function(){
+  if (typeof SITE === "undefined" || !SITE.events) return;
+  const da = {{ da | jsonify }};
+  const today = new Date().toISOString().slice(0, 10);
+  const next = SITE.events
+    .filter(e => e.date >= today)
+    .sort((a, b) => a.date.localeCompare(b.date))[0];
+  if (!next) return;
+  const esc = s => String(s ?? "").replace(/[&<>"]/g, c => ({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"})[c]);
+  const date = new Date(next.date + "T12:00:00").toLocaleDateString(da ? "da-DK" : "en-GB", { weekday:"long", day:"numeric", month:"long" });
+  const venue = da ? (next.venueDa || next.venue) : next.venue;
+  const age = da ? (next.ageGroupDa || next.ageGroup) : next.ageGroup;
+  document.getElementById("next-event").innerHTML =
+    `<p>${da ? "Næste aften" : "Next evening"}:</p>
+     <strong>${esc(next.title)}</strong>
+     <p>${esc(date)} · ${esc(next.time)} · ${esc(venue)}${age ? " · " + esc(age) : ""}</p>`;
+  if (next.bookingUrl) {
+    const btn = document.getElementById("next-event-btn");
+    btn.href = next.bookingUrl;
+    btn.target = "_blank";
+    btn.rel = "noopener";
+    btn.textContent = da ? "Køb billet" : "Get a ticket";
+  }
+})();
+</script>

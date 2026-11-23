@@ -1,0 +1,27 @@
+# Softer Dating site settings (GitHub Pages / Jekyll)
+# The homepage, /da/ and /thanks/ are plain HTML and are published as-is.
+# Only the blog uses these settings.
+
+title: Softer Dating
+description: Slow thoughts on dating: essays and field notes on app fatigue, embodiment and meeting people in the flesh.
+url: https://www.softerdating.dk
+lang: en
+
+plugins:
+  - jekyll-sitemap   # makes /sitemap.xml and /robots.txt for Google
+  - jekyll-feed      # makes the RSS feed at /blog/feed.xml
+
+feed:
+  path: blog/feed.xml
+
+# Every blog post gets the post layout and lives at softerdating.dk/blog/<file-name>/
+defaults:
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      permalink: /blog/:title/
+
+exclude:
+  - README.md
